@@ -246,11 +246,11 @@
         "srvos": "srvos"
       },
       "locked": {
-        "lastModified": 1703790358,
-        "narHash": "sha256-bdlTozy5F56tf8hO/kDn0ZBjF8UZLIggfje2vmF4Qg8=",
+        "lastModified": 1703790730,
+        "narHash": "sha256-sJrftjgoMtYicqsqeat7taWrbId/sz5D16VW/jJgdAo=",
         "owner": "plmercereau",
         "repo": "nicos",
-        "rev": "3e0c6937741b84b50ae849640b554377e6ad15a4",
+        "rev": "aa8d0c401c111ab82a061dd6b360f59c63f0b896",
         "type": "github"
       },
       "original": {
