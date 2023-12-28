@@ -6,7 +6,6 @@
     networking = {
       publicIP = "128.140.39.64";
       vpn = {
-        enable = true;
         publicKey = "Juozjo5Mi2zPm0fwhHlo3b5956HtZOw0MxdYWOjA2XU=";
         bastion = {
           enable = true;

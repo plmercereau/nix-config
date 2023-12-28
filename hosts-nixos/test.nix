@@ -6,10 +6,7 @@
 
     networking = {
       publicIP = "65.108.88.217";
-      vpn = {
-        enable = true;
-        publicKey = "jW/AbaW8SSBKHUdYiSWQKuecN4Z1C04VcEnnin+A5y0=";
-      };
+      vpn.publicKey = "jW/AbaW8SSBKHUdYiSWQKuecN4Z1C04VcEnnin+A5y0=";
     };
   };
 }
