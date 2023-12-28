@@ -1,0 +1,3 @@
+[submodule "nicos"]
+	path = nicos
+	url = https://github.com/plmercereau/nicos

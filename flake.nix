@@ -12,7 +12,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nicos.url = "github:plmercereau/nicos";
+    nicos.url = "git+file:./nicos";
     nicos.inputs = {
       nixpkgs.follows = "nixpkgs";
       nix-darwin.follows = "nix-darwin";

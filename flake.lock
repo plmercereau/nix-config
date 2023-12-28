@@ -196,11 +196,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703787578,
-        "narHash": "sha256-YanYMRry0uvExeCZYbM7yEp3H0gct9SocfFWvsYtyfs=",
+        "lastModified": 1703801279,
+        "narHash": "sha256-D0veQ8dryJvdRWQWDgHQLdtY8L86D4HEUvNv+FJlq/E=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f8a4a5c18f4fee53ac3016a52a97df2aaeede65b",
+        "rev": "30f9cdd69d1486a3d5cddaaabef7288d8ed389ee",
         "type": "github"
       },
       "original": {
@@ -246,17 +246,16 @@
         "srvos": "srvos"
       },
       "locked": {
+        "dirtyRev": "aa8d0c401c111ab82a061dd6b360f59c63f0b896-dirty",
+        "dirtyShortRev": "aa8d0c4-dirty",
         "lastModified": 1703790730,
-        "narHash": "sha256-sJrftjgoMtYicqsqeat7taWrbId/sz5D16VW/jJgdAo=",
-        "owner": "plmercereau",
-        "repo": "nicos",
-        "rev": "aa8d0c401c111ab82a061dd6b360f59c63f0b896",
-        "type": "github"
+        "narHash": "sha256-uOBchfwhPoaI7rcBOKbEqmvf69HasYCVjqvEbqFrS9o=",
+        "type": "git",
+        "url": "file:./nicos"
       },
       "original": {
-        "owner": "plmercereau",
-        "repo": "nicos",
-        "type": "github"
+        "type": "git",
+        "url": "file:./nicos"
       }
     },
     "nix-darwin": {
