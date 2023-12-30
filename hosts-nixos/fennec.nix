@@ -35,6 +35,7 @@ in {
   environment.gnome.excludePackages =
     (with pkgs; [
       gnome-tour
+      gedit # text editor
     ])
     ++ (with pkgs.gnome; [
       atomix # puzzle game
@@ -42,7 +43,6 @@ in {
       epiphany # web browser
       evince # document viewer
       geary # email reader
-      gedit # text editor
       gnome-bluetooth
       gnome-calendar
       gnome-characters

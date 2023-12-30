@@ -9,9 +9,9 @@
       vpn.publicKey = "cMt59SZfO/YNKNfrcEzzGLTGpKoxH4g/0AR9Iu0eTnE=";
     };
     services.nix-builder.enable = true;
-
+    services.linux-builder.enable = true;
     windowManager.enable = true;
-    keyMapping.enable = true;
+    keyboard.keyMapping.enable = true;
   };
 
   homebrew.casks = [

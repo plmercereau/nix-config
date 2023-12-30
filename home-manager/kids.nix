@@ -21,6 +21,7 @@
       colobot
       extremetuxracer
       frozen-bubble
+      gedit # text editor
       tuxtype
       #   kstars # awful UI
       libsForQt5.marble
@@ -39,7 +40,6 @@
       hitori # sudoku game
       atomix # puzzle game
       sushi # preview files
-      gedit # text editor
       gpaste # clipboard manager
       simple-scan # scanner
       gnome-chess
