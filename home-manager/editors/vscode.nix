@@ -40,6 +40,7 @@ in {
         ms-vscode-remote.remote-ssh
         redhat.vscode-yaml
         tamasfe.even-better-toml
+        unifiedjs.vscode-mdx
         vscode-icons-team.vscode-icons
         yzhang.markdown-all-in-one
         ms-python.python
@@ -80,6 +81,9 @@ in {
         "workbench.colorTheme" = "Gruvbox Dark Medium";
       }
       // lib.optionalAttrs (builtins.elem pkgs.vscode-extensions.esbenp.prettier-vscode extensions) {
+        "[json]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
         "[html]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
