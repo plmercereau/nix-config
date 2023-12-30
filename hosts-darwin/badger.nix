@@ -11,7 +11,8 @@
       localIP = "10.136.1.242";
       vpn.publicKey = "zNzpca0ysOu3hf7BMahAs8B7Ii7LpBwHcOYaqacG1y8=";
     };
-    services.linux-builder.enable = true;
+    # TODO re-enable when the qemu/dbus bug is fixed
+    services.linux-builder.enable = false;
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
   };

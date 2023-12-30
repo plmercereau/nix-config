@@ -35,7 +35,6 @@ in {
   environment.gnome.excludePackages =
     (with pkgs; [
       gnome-tour
-      gedit # text editor
     ])
     ++ (with pkgs.gnome; [
       atomix # puzzle game
