@@ -1,10 +1,21 @@
 # Settings common to all the machines
-{cluster, ...}: {
+{
+  cluster,
+  pkgs,
+  ...
+}: {
   nixpkgs.config.allowUnfree = true;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
   };
+
+  # TODO only if ui is enabled
+  fonts.fontDir.enable = true;
+  fonts.packages = with pkgs; [
+    meslo-lg
+    meslo-lgs-nf
+  ];
 
   time.timeZone = "Europe/Brussels";
   settings = {
