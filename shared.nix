@@ -24,7 +24,7 @@
     users.users = {
       pilou = {
         enable = true;
-        admin = true;
+        isAdmin = true;
         publicKeys = cluster.adminKeys;
       };
     };
