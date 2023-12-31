@@ -246,10 +246,11 @@
         "srvos": "srvos"
       },
       "locked": {
-        "dirtyRev": "0e2f95cd6ee15d275a520b4d6cb8e0a3be56f0e0-dirty",
-        "dirtyShortRev": "0e2f95c-dirty",
-        "lastModified": 1704040259,
-        "narHash": "sha256-5yIRiw0/Rcy5fNyG2VvbG2AUB2VadYHf1r5LxYPADQY=",
+        "lastModified": 1704049325,
+        "narHash": "sha256-C+6SX0Thblc43SjPEPsb8tDC/K532bBC92Um0XQe9qI=",
+        "ref": "refs/heads/main",
+        "rev": "4f7a571c2ca111a4a9c010d277098fdafc06085c",
+        "revCount": 288,
         "type": "git",
         "url": "file:./nicos"
       },
