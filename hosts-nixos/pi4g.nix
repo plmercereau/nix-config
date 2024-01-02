@@ -12,6 +12,6 @@
       localIP = "10.136.1.77";
       vpn.publicKey = "16u3+D45pngM5UPMNxoxZkfd+CYAwLjfqGIadMMkAwQ=";
     };
-    impermanence.enable = true;
+    system.impermanence.enable = true;
   };
 }

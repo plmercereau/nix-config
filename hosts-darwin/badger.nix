@@ -11,8 +11,9 @@
       localIP = "10.136.1.242";
       vpn.publicKey = "zNzpca0ysOu3hf7BMahAs8B7Ii7LpBwHcOYaqacG1y8=";
     };
-    # TODO re-enable when the qemu/dbus bug is fixed
-    services.linux-builder.enable = false;
+    services.linux-builder.enable = true;
+    services.linux-builder.crossBuilding.enable = false; # Not working yet, QEMU issue. See todo list
+    # services.linux-builder.initialBuild = true; # The linux-builder is built: we disable this option
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
   };
