@@ -10,11 +10,11 @@ in {
   imports = [hardware.nuc];
 
   settings = {
-    id = 6;
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIM5l9qxM+KFhsxJR1ZM0QYu/s5VHJQAARnuSDi4iIkP";
     networking = {
       localIP = "10.136.1.11";
       vpn.publicKey = "PGpF36QtpwlEuqJTqxjTMiXKq5DBUKM133UYvLuMS0A=";
+      vpn.id = 6;
     };
 
     services.nix-builder.enable = true;

@@ -2,11 +2,11 @@
   imports = [hardware.x86];
 
   settings = {
-    id = 3;
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2l6Ve+Fzy5vd+S8WlolJftpFsQtXn7gsAfxHgEXOVH";
     networking = {
       localIP = "10.136.1.99";
       vpn.publicKey = "cMt59SZfO/YNKNfrcEzzGLTGpKoxH4g/0AR9Iu0eTnE=";
+      vpn.id = 3;
     };
     services.nix-builder.enable = true;
     services.linux-builder.enable = true;

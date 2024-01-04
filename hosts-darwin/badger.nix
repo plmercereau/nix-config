@@ -5,11 +5,11 @@
 }: {
   imports = [hardware.m1];
   settings = {
-    id = 2;
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcwa/PgM3iOEzPdIfLwtpssHtozAzhU4I0g4Iked/LE";
     networking = {
       localIP = "10.136.1.242";
       vpn.publicKey = "zNzpca0ysOu3hf7BMahAs8B7Ii7LpBwHcOYaqacG1y8=";
+      vpn.id = 2;
     };
     services.linux-builder.enable = true;
     services.linux-builder.crossBuilding.enable = false; # Not working yet, QEMU issue. See todo list
