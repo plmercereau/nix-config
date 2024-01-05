@@ -19,7 +19,6 @@
 
   time.timeZone = "Europe/Brussels";
   settings = {
-    networking.wireless.localNetworkId = "mjmp";
     networking.vpn.enable = true;
     users.users = {
       pilou = {

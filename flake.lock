@@ -196,11 +196,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1704358952,
-        "narHash": "sha256-yazDFmdyKr0JGMqmzQ5bYOW5FWvau8oFvsQ8eSB2f3A=",
+        "lastModified": 1704383912,
+        "narHash": "sha256-Be7O73qoOj/z+4ZCgizdLlu+5BkVvO2KO299goZ9cW8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c36cb65c4a0ba17ab9262ab3c30920429348746c",
+        "rev": "26b8adb300e50efceb51fff6859a1a6ba1ade4f7",
         "type": "github"
       },
       "original": {
@@ -246,10 +246,11 @@
         "srvos": "srvos"
       },
       "locked": {
-        "dirtyRev": "a462c748554d835a94c6363bc7b421c78852557d-dirty",
-        "dirtyShortRev": "a462c74-dirty",
-        "lastModified": 1704327754,
-        "narHash": "sha256-z/bjs0XEZtV38eQZOsucU62jNfa1K866GXqQKd5XE6M=",
+        "lastModified": 1704459882,
+        "narHash": "sha256-Ap1wDrv+N22l4j5kbt9VaUqsgQdJFTu2sGBX8CuJSMo=",
+        "ref": "refs/heads/main",
+        "rev": "cc14f0551535cbb57f1fab08150536d2fcb696fc",
+        "revCount": 314,
         "type": "git",
         "url": "file:./nicos"
       },
