@@ -30,6 +30,7 @@
       #   frozen-bubble # complicated to make it work - and needs internet...
       superTux
       superTuxKart
+      hedgewars
       # freeciv # ? too early?
       # lutris # ? see later
       # iina # TODO vlc, as iina is not available for linux. Or: https://github.com/mpv-player/mpv/wiki/Applications-using-mpv

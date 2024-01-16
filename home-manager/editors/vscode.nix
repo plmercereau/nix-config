@@ -44,6 +44,7 @@ in {
         vscode-icons-team.vscode-icons
         yzhang.markdown-all-in-one
         ms-python.python
+        mkhl.direnv
       ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
@@ -63,6 +64,12 @@ in {
           publisher = "TheNuProjectContributors";
           version = "1.6.0";
           sha256 = "sha256-UTr1Z9lz1U7IDY3GtZkyFwhUj7FpZgbr3G4dI8AymKU=";
+        }
+        {
+          name = "volar";
+          publisher = "Vue";
+          version = "1.8.27";
+          sha256 = "sha256-6FktlAJmOD3dQNn2TV83ROw41NXZ/MgquB0RFQqwwW0=";
         }
       ];
     userSettings =
