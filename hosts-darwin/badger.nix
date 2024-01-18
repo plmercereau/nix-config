@@ -3,7 +3,8 @@
   hardware,
   ...
 }: {
-  imports = [hardware.m1];
+  imports = [hardware.m1 ../modules/darwin];
+
   settings = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcwa/PgM3iOEzPdIfLwtpssHtozAzhU4I0g4Iked/LE";
     networking = {
@@ -14,6 +15,9 @@
     services.linux-builder.enable = true;
     services.linux-builder.crossBuilding.enable = false; # Not working yet, QEMU issue. See todo list
     # services.linux-builder.initialBuild = true; # The linux-builder is built: we disable this option
+  };
+
+  pilou = {
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
   };

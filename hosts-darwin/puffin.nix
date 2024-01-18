@@ -1,5 +1,5 @@
 {hardware, ...}: {
-  imports = [hardware.x86];
+  imports = [hardware.x86 ../modules/darwin];
 
   settings = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2l6Ve+Fzy5vd+S8WlolJftpFsQtXn7gsAfxHgEXOVH";
@@ -10,6 +10,9 @@
     };
     services.nix-builder.enable = true;
     services.linux-builder.enable = true;
+  };
+
+  pilou = {
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
   };

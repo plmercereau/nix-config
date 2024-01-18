@@ -7,7 +7,7 @@
 }: let
   common = "common";
 in {
-  imports = [hardware.nuc];
+  imports = [hardware.nuc ../modules/nixos];
 
   settings = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIM5l9qxM+KFhsxJR1ZM0QYu/s5VHJQAARnuSDi4iIkP";

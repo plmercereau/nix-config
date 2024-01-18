@@ -1,5 +1,5 @@
 {hardware, ...}: {
-  imports = [hardware.hetzner-x86];
+  imports = [hardware.hetzner-x86 ../modules/nixos];
   settings = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0e4xgSR+fNpnLPcB+EGzPYZ4wuCulH36OM0DQTAU5p";
 
