@@ -10,6 +10,10 @@
     useUserPackages = true;
   };
 
+  programs.zsh.enable = true;
+  # * Required for zsh completion, see: https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.enableCompletion
+  environment.pathsToLink = ["/share/zsh"];
+
   # TODO only if ui is enabled
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
