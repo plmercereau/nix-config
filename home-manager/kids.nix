@@ -18,7 +18,6 @@
   home.packages = with pkgs; ([
       gcompris
       tuxpaint # TODO config file https://tuxpaint.org/docs/en/html/OPTIONS.html#cfg-file
-      colobot
       extremetuxracer
       frozen-bubble
       gedit # text editor

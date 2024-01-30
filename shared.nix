@@ -1,6 +1,8 @@
 # Settings common to all the machines
 {
   cluster,
+  config,
+  lib,
   pkgs,
   ...
 }: {
@@ -33,4 +35,6 @@
     };
   };
   home-manager.users.pilou = import ./home-manager/pilou-minimal.nix;
+  # pilou is a member of the kubernetes admin group, if kubernetes is enabled
+  users.users.pilou.extraGroups = lib.optional config.settings.services.kubernetes.enable config.settings.services.kubernetes.group;
 }

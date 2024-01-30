@@ -8,5 +8,13 @@
       vpn.publicKey = "jW/AbaW8SSBKHUdYiSWQKuecN4Z1C04VcEnnin+A5y0=";
       vpn.id = 7;
     };
+
+    services.kubernetes = {
+      enable = true; # may conflict on port 80 (k3s enables traefik)
+      fleet = {
+        enable = true;
+        mode = "downstream";
+      };
+    };
   };
 }
