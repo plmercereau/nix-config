@@ -4,6 +4,7 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
 
+    # (Hint: don't use nixos-unstable-small when enabling the linux-builder on a darwin)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
@@ -25,9 +26,10 @@
     nicos,
     flake-utils,
     nixpkgs,
+    nix-darwin,
     ...
-  }:
-    nicos.lib.configure (import ./config.nix) (flake-utils.lib.eachDefaultSystem (system: let
+  }: let
+    conf = nicos.lib.configure (import ./config.nix) (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       # Use the devShells of the nicos flake
@@ -52,4 +54,18 @@
         };
       };
     }));
+  in (conf
+    // {
+      darwinConfigurations = {
+        badger = nix-darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = [
+            ./modules/darwin.nix
+          ];
+          specialArgs = {
+            inherit (conf) cluster;
+          };
+        };
+      };
+    });
 }

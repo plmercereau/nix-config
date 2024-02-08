@@ -19,7 +19,7 @@ in {
 
     services.nix-builder.enable = true;
     services.kubernetes = {
-      enable = true; # may conflict on port 80 (k3s enables traefik)
+      enable = false; # conflicts on port 80 (k3s enables traefik)
       fleet = {
         enable = true;
         mode = "upstream";
@@ -75,7 +75,8 @@ in {
   # Disable the network manager for the wifi interface
   networking.networkmanager.unmanaged = ["wlo1"];
 
-  # services.nginx.enable = true;
+  # TODO disabled for now as it conflicts with k3s
+  services.nginx.enable = true;
 
   services.transmission.enable = true;
   services.transmission.group = common;

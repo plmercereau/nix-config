@@ -10,6 +10,18 @@
         bastion = {
           enable = true;
           port = 51820;
+          extraMachines = {
+            badger = {
+              # TODO reconfigure
+              publicKey = "zNzpca0ysOu3hf7BMahAs8B7Ii7LpBwHcOYaqacG1y8=";
+              id = 2;
+            };
+            puffin = {
+              # TODO reconfigure
+              publicKey = "cMt59SZfO/YNKNfrcEzzGLTGpKoxH4g/0AR9Iu0eTnE=";
+              id = 3;
+            };
+          };
         };
       };
     };

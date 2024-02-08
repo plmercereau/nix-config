@@ -1,23 +1,14 @@
-{
-  pkgs,
-  hardware,
-  ...
-}: {
-  imports = [hardware.m1 ../modules/darwin];
+{pkgs, ...}: {
+  nixpkgs.hostPlatform = "aarch64-darwin";
+  nix.settings.cores = 8;
+  networking.hostName = "badger";
 
-  settings = {
-    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcwa/PgM3iOEzPdIfLwtpssHtozAzhU4I0g4Iked/LE";
-    networking = {
-      localIP = "10.136.1.242";
-      vpn.publicKey = "zNzpca0ysOu3hf7BMahAs8B7Ii7LpBwHcOYaqacG1y8=";
-      vpn.id = 2;
-    };
-    services.linux-builder.enable = true;
-    services.linux-builder.crossBuilding.enable = false; # Not working yet, QEMU issue. See todo list
-    # services.linux-builder.initialBuild = true; # The linux-builder is built: we disable this option
-  };
+  # TODO reconfigure
+  # localIP = "10.136.1.242";
+  # services.linux-builder.enable = true;
+  # services.linux-builder.crossBuilding.enable = false; # Not working yet, QEMU issue. See todo list
 
-  pilou = {
+  custom = {
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
   };

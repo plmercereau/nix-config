@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  applications = config.pilou.applications;
+  applications = config.custom.applications;
 in {
   homebrew = {
     enable = true;
@@ -33,6 +33,7 @@ in {
       "bitwarden"
       "jellyfin-media-player"
       "raycast" # Raycast is a replacement of Spotlight that manages the launch of apps installed with nix
+      "tailscale"
     ];
   };
 

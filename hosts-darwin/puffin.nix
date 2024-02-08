@@ -1,18 +1,12 @@
 {hardware, ...}: {
-  imports = [hardware.x86 ../modules/darwin];
+  nixpkgs.hostPlatform = "x86_64-darwin";
 
-  settings = {
-    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2l6Ve+Fzy5vd+S8WlolJftpFsQtXn7gsAfxHgEXOVH";
-    networking = {
-      localIP = "10.136.1.99";
-      vpn.publicKey = "cMt59SZfO/YNKNfrcEzzGLTGpKoxH4g/0AR9Iu0eTnE=";
-      vpn.id = 3;
-    };
-    services.nix-builder.enable = true;
-    services.linux-builder.enable = true;
-  };
+  # TODO reconfigure
+  # localIP = "10.136.1.99";
+  # services.nix-builder.enable = true;
+  # services.linux-builder.enable = true;
 
-  pilou = {
+  custom = {
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
   };

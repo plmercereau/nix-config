@@ -5,10 +5,10 @@
   ...
 }:
 with lib; let
-  enableWindowManager = config.pilou.windowManager.enable;
+  enableWindowManager = config.custom.windowManager.enable;
   yabai-extra = import ./yabai-extra {inherit pkgs lib;};
 in {
-  options.pilou.windowManager = {
+  options.custom.windowManager = {
     enable = mkEnableOption "the window manager";
   };
 

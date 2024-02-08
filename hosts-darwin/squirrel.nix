@@ -1,14 +1,9 @@
-{hardware, ...}: {
-  imports = [hardware.m1 ../modules/darwin];
+{...}: {
+  nixpkgs.hostPlatform = "aarch64-darwin";
+  nix.settings.cores = 8;
 
-  settings = {
-    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcwa/PgM3iOEzPdIfLwtpssHtozAzhU4I0g4Iked/LE";
-    networking = {
-      localIP = "10.136.1.133";
-      vpn.publicKey = "4Y/frov/D/Y2Fpf5QpHXQU1zKltS63rChNSPGPlDV2w=";
-      vpn.id = 5;
-    };
-  };
+  # TODO reconfigure
+  # localIP = "10.136.1.133";
 
   homebrew.casks = [
     "google-chrome" # nix package only for linux
@@ -17,6 +12,5 @@
     "webex"
   ];
 
-  settings.users.users.madhu.enable = true;
   home-manager.users.madhu = import ../home-manager/madhu.nix;
 }
