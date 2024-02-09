@@ -281,11 +281,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1707389148,
-        "narHash": "sha256-O+yaq9zMKQypz+honPIDZ4vFQ79CjupFXCJ6pUPOcH0=",
+        "lastModified": 1707475611,
+        "narHash": "sha256-zJghaGrqMtYBsuEUqbXX+rlr0V9XIZ/Cn30vcfJk8/8=",
         "owner": "plmercereau",
         "repo": "nicos",
-        "rev": "7e9ba503591eec44a814146cf7854fd28e54d0f3",
+        "rev": "1bdaf2797b964b808dd370ca4392109c2cbfa173",
         "type": "github"
       },
       "original": {
@@ -376,11 +376,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1707092692,
-        "narHash": "sha256-ZbHsm+mGk/izkWtT4xwwqz38fdlwu7nUUKXTOmm4SyE=",
+        "lastModified": 1707268954,
+        "narHash": "sha256-2en1kvde3cJVc3ZnTy8QeD2oKcseLFjYPLKhIGDanQ0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "faf912b086576fd1a15fca610166c98d47bc667e",
+        "rev": "f8e2ebd66d097614d51a56a755450d4ae1632df1",
         "type": "github"
       },
       "original": {

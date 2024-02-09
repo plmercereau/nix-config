@@ -42,13 +42,8 @@ in {
     enable = true;
     config = mkIf (!cfg.initialBuild) ({pkgs, ...}: {
       virtualisation.diskSize = lib.mkForce (1024 * 40); # 40GB, defaults seems to be 20GB
-      users.users.builder = {
-        # * add the admin ssh keys into the linux-builder so the project admins can connect to it without using the /etc/nix/builder_ed25519 identity
-        # TODO
-        # openssh.authorizedKeys.keys = config.lib.ext_lib.adminKeys;
-        # * the builder user needs to be in the wheel group to be able to mount iso images
-        extraGroups = ["wheel"];
-      };
+      # * the builder user needs to be in the wheel group to be able to mount iso images
+      users.users.builder.extraGroups = ["wheel"];
       security.sudo.wheelNeedsPassword = false;
     });
   };
