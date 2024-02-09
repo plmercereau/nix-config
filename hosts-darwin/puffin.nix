@@ -26,6 +26,7 @@
     "zwift"
   ];
 
+  users.users.pilou.home = "/Users/pilou";
   home-manager.users.pilou = {
     imports = [../home-manager/pilou-gui.nix];
 

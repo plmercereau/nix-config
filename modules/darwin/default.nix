@@ -14,12 +14,37 @@ with lib; let
     nixosConfigurations;
   nbBuilers = builtins.length (builtins.attrNames builders);
 in {
-  imports = [./packages.nix ./ui ./keyboard.nix ./ssh.nix ./system.nix];
+  imports = [
+    ./keyboard.nix
+    ./linux-builder.nix
+    ./packages.nix
+    ./ssh.nix
+    ./system.nix
+    ./ui
+  ];
 
   # "fonts" renamed to "packages" in nixos, but not in nix-darwin
   options.fonts.packages = options.fonts.fonts;
 
   config = {
+    time.timeZone = "Europe/Brussels";
+
+    nixpkgs.config.allowUnfree = true;
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+    };
+
+    programs.zsh.enable = true;
+    # * Required for zsh completion, see: https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.enableCompletion
+    environment.pathsToLink = ["/share/zsh"];
+
+    fonts.fontDir.enable = true;
+    fonts.packages = with pkgs; [
+      meslo-lg
+      meslo-lgs-nf
+    ];
+
     # Enable sudo authentication with Touch ID
     # See: https://daiderd.com/nix-darwin/manual/index.html#opt-security.pam.enableSudoTouchIdAuth
     security.pam.enableSudoTouchIdAuth = true;
@@ -57,26 +82,6 @@ in {
       extraOptions = ''
         builders-use-substitutes = true
       '';
-
-      # Every host has access to the machines configured as a Nix builder
-      buildMachines =
-        mkForce
-        (mapAttrsToList (name: host: let
-            conf = host.settings.services.nix-builder;
-          in {
-            inherit (host.networking) hostName;
-            inherit (conf) supportedFeatures speedFactor maxJobs;
-            sshUser = conf.ssh.user;
-            sshKey = conf.ssh.privateKeyFile;
-            protocol = "ssh-ng";
-
-            systems =
-              [host.nixpkgs.hostPlatform.system]
-              ++ (optionals
-                (host.nixpkgs.hostPlatform.isLinux)
-                host.boot.binfmt.emulatedSystems);
-          })
-          builders);
     };
 
     # Load SSH known hosts
@@ -113,17 +118,5 @@ in {
         )
         nixosConfigurations);
     };
-
-    environment.etc."ssh/ssh_config.d/150-remote-builders.conf" =
-      mkIf (nbBuilers > 0)
-      {
-        text = builtins.concatStringsSep "\n" (
-          mapAttrsToList (name: host: ''
-            Match user ${user} originalhost ${host.networking.hostName}
-              IdentityFile ${cfg.ssh.privateKeyFile}
-          '')
-          builders
-        );
-      };
   };
 }

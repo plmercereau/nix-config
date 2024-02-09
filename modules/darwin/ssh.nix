@@ -1,15 +1,14 @@
 {
   config,
   lib,
-  cluster,
+  nixosConfigurations,
   ...
 }:
-with lib; let
-  inherit (cluster) hosts;
-in {
+with lib; {
   # Load SSH known hosts
   programs.ssh.knownHosts =
-    lib.mapAttrs (name: cfg: let
+    lib.mapAttrs (name: machine: let
+      cfg = machine.config;
       inherit (cfg.settings) sshPublicKey;
       inherit (cfg.settings.networking) publicIP localIP vpn;
     in {
@@ -19,10 +18,11 @@ in {
         ++ lib.optional (localIP != null) localIP;
       publicKey = sshPublicKey;
     })
-    hosts;
+    nixosConfigurations;
 
   environment.etc."ssh/sshd_config.d/300-hosts.conf".text = builtins.concatStringsSep "\n" (lib.mapAttrsToList (
-      name: cfg: let
+      name: machine: let
+        cfg = machine.config;
         inherit (cfg.settings.networking) publicIP publicDomain localIP localDomain vpn;
       in
         # Use the local IP if it is available
@@ -43,5 +43,5 @@ in {
             Hostname ${cfg.lib.vpn.ip}
         ''
     )
-    hosts);
+    nixosConfigurations);
 }

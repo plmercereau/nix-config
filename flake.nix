@@ -13,10 +13,15 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      home-manager.follows = "home-manager";
+    };
+
     nicos.url = "github:plmercereau/nicos";
     nicos.inputs = {
       nixpkgs.follows = "nixpkgs";
-      nix-darwin.follows = "nix-darwin";
       home-manager.follows = "home-manager";
       flake-utils.follows = "flake-utils";
     };
@@ -27,6 +32,8 @@
     flake-utils,
     nixpkgs,
     nix-darwin,
+    agenix,
+    home-manager,
     ...
   }: let
     conf = nicos.lib.configure (import ./config.nix) (flake-utils.lib.eachDefaultSystem (system: let
@@ -58,12 +65,14 @@
     // {
       darwinConfigurations = {
         badger = nix-darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
           modules = [
-            ./modules/darwin.nix
+            ./modules/darwin
+            ./hosts-darwin/badger.nix
+            agenix.darwinModules.default
+            home-manager.darwinModules.home-manager
           ];
           specialArgs = {
-            inherit (conf) cluster;
+            inherit (conf) nixosConfigurations;
           };
         };
       };

@@ -2,10 +2,32 @@
   "nodes": {
     "agenix": {
       "inputs": {
-        "darwin": [
-          "nicos",
-          "nixpkgs-darwin"
+        "darwin": "darwin",
+        "home-manager": [
+          "home-manager"
         ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1703433843,
+        "narHash": "sha256-nmtA4KqFboWxxoOAA6Y1okHbZh+HsXaMPFkYHsoDRDw=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "417caa847f9383e111d1397039c9d4337d024bf0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
+    "agenix_2": {
+      "inputs": {
+        "darwin": "darwin_2",
         "home-manager": [
           "nicos",
           "home-manager"
@@ -30,6 +52,51 @@
       "original": {
         "owner": "ryantm",
         "repo": "agenix",
+        "type": "github"
+      }
+    },
+    "darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "agenix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1700795494,
+        "narHash": "sha256-gzGLZSiOhf155FW7262kdHo2YDeugp3VuIFb4/GGng0=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "4b9b83d5a92e8c1fbfd8eb27eda375908c11ec4d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "darwin_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nicos",
+          "agenix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1706833576,
+        "narHash": "sha256-w7BL0EWRts+nD1lbLECIuz6fRzmmV+z8oWwoY7womR0=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "bdbae6ecff8fcc322bf6b9053c0b984912378af7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
         "type": "github"
       }
     },
@@ -142,7 +209,7 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1705309234,
@@ -195,7 +262,7 @@
     },
     "nicos": {
       "inputs": {
-        "agenix": "agenix",
+        "agenix": "agenix_2",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "flake-utils": [
@@ -205,24 +272,20 @@
           "home-manager"
         ],
         "impermanence": "impermanence",
-        "nix-darwin": [
-          "nix-darwin"
-        ],
         "nixos-anywhere": "nixos-anywhere",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable",
         "srvos": "srvos",
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1706908317,
-        "narHash": "sha256-IdPZaGfVYC42nmVhXCC8bsR2X4sooLEZSrf/p9tH3ZY=",
+        "lastModified": 1707389148,
+        "narHash": "sha256-O+yaq9zMKQypz+honPIDZ4vFQ79CjupFXCJ6pUPOcH0=",
         "owner": "plmercereau",
         "repo": "nicos",
-        "rev": "bc2ed35bcdb2f2b7ab34deb3ba161ffdf93275b4",
+        "rev": "7e9ba503591eec44a814146cf7854fd28e54d0f3",
         "type": "github"
       },
       "original": {
@@ -327,22 +390,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-darwin": {
-      "locked": {
-        "lastModified": 1706238326,
-        "narHash": "sha256-UoaXxj7jPassTrZQWdIzXayyNHciB2XTdHiEzVnA0YA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f034d32568a1c7ea14599b191fdaea9df16aec32",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-23.11-darwin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1706098335,
@@ -361,6 +408,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nicos": "nicos",
@@ -406,6 +454,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
