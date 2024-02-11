@@ -28,6 +28,7 @@ in {
     tmux
     wget
     wireguard-tools
+    k9s # Kubernetes CLI UI
   ];
 
   programs.git = {

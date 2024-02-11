@@ -1,4 +1,8 @@
-{hardware, ...}: {
+{
+  hardware,
+  config,
+  ...
+}: {
   imports = [hardware.hetzner-x86 ../modules/nixos];
   settings = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0e4xgSR+fNpnLPcB+EGzPYZ4wuCulH36OM0DQTAU5p";
@@ -10,10 +14,16 @@
     };
 
     services.kubernetes = {
-      enable = true; # may conflict on port 80 (k3s enables traefik)
+      enable = true;
       fleet = {
         enable = true;
         mode = "downstream";
+        labels = {
+          apache = "enabled";
+        };
+        values = {
+          hostname = "${config.settings.networking.publicIP}.sslip.io";
+        };
       };
     };
   };

@@ -21,7 +21,6 @@
     tldr # complement to man
     unzip
     w3m # text-based web browser
-    k9s # Kubernetes CLI UI
     kubernetes-helm
   ];
 
