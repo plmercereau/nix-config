@@ -5,7 +5,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+with lib; {
   nixpkgs.config.allowUnfree = true;
   home-manager = {
     useGlobalPkgs = true;
@@ -35,6 +36,9 @@
     };
   };
   home-manager.users.pilou = import ./home-manager/pilou-minimal.nix;
-  # pilou is a member of the kubernetes admin group, if kubernetes is enabled
-  users.users.pilou.extraGroups = lib.optional config.settings.services.kubernetes.enable config.settings.services.kubernetes.group;
+  users.users.pilou.extraGroups =
+    # pilou is a member of the kubernetes admin group, if kubernetes is enabled
+    (optional config.settings.services.kubernetes.enable config.settings.services.kubernetes.group)
+    # pilou is a member of the gitDaemon group, if gitDaemon is enabled
+    ++ (optional config.services.gitDaemon.enable config.services.gitDaemon.group);
 }
