@@ -13,7 +13,7 @@ with lib; {
       inherit (cfg.settings.networking) publicIP localIP vpn;
     in {
       hostNames =
-        lib.optionals vpn.enable [cfg.lib.vpn.ip name "${name}.${vpn.domain}"]
+        lib.optionals vpn.enable [cfg.lib.vpn.ip name cfg.lib.vpn.fqdn]
         ++ lib.optional (publicIP != null) publicIP
         ++ lib.optional (localIP != null) localIP;
       publicKey = sshPublicKey;
@@ -39,7 +39,7 @@ with lib; {
         +
         # Use the VPN IP if available.
         lib.optionalString (vpn.enable) ''
-          Match Originalhost ${name}.${vpn.domain}
+          Match Originalhost ${cfg.lib.vpn.fqdn}
             Hostname ${cfg.lib.vpn.ip}
         ''
     )

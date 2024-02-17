@@ -22,6 +22,7 @@
     unzip
     w3m # text-based web browser
     kubernetes-helm
+    tcpdump
   ];
 
   # * See: https://mipmip.github.io/home-manager-option-search/?query=programs.gh

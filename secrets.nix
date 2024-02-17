@@ -1,3 +1,3 @@
 {
-  "hosts-darwin/badger.vpn.age".publicKeys = (import ./config.nix).adminKeys;
+  "users/pilou.vpn.age".publicKeys = (import ./config.nix).adminKeys;
 }

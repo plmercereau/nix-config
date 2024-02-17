@@ -14,36 +14,14 @@
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
     linux-builder.enable = true;
+    # linux-builder.initialBuild = true;
   };
 
-  age.secrets.vpn.file = ./badger.vpn.age;
-
-  networking.wg-quick.interfaces.wg0 = {
-    privateKeyFile = config.age.secrets.vpn.path;
-    address = ["10.100.0.0/24"];
-    peers = [
-      {
-        publicKey = "Juozjo5Mi2zPm0fwhHlo3b5956HtZOw0MxdYWOjA2XU=";
-        allowedIPs = ["10.100.0.0/24"];
-        endpoint = " 128.140.39.64:51820";
-        persistentKeepalive = 25;
-      }
-    ];
-    postUp = ''
-      # Add the route to the VPN network
-      mkdir -p /etc/resolver
-      cat << EOF > /etc/resolver/vpn
-      port 53
-      domain vpn
-      search vpn
-      nameserver 10.100.0.1
-      EOF
-    '';
-
-    postDown = ''
-      rm -f /etc/resolver/vpn
-    '';
-  };
+  # launchd.daemons.linux-builder = {
+  #   serviceConfig.Debug = true;
+  #   serviceConfig.StandardErrorPath = "/var/log/linux-builder-err.log";
+  #   serviceConfig.StandardOutPath = "/var/log/linux-builder.log";
+  # };
 
   homebrew.casks = [
     "arduino"
@@ -69,7 +47,10 @@
 
   users.users.pilou.home = "/Users/pilou";
   home-manager.users.pilou = {
-    imports = [../home-manager/pilou-gui.nix];
+    imports = [
+      ../home-manager/pilou-gui.nix
+      ../home-manager/wireguard.nix
+    ];
 
     home.packages = with pkgs; [
       discord

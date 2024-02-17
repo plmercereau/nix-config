@@ -92,7 +92,7 @@ in {
         inherit (cfg.settings.networking) publicIP localIP;
       in {
         hostNames =
-          lib.optionals cfg.settings.networking.vpn.enable [cfg.lib.vpn.ip cfg.networking.hostName "${cfg.networking.hostName}.${cfg.settings.networking.vpn.domain}"]
+          lib.optionals cfg.settings.networking.vpn.enable [cfg.lib.vpn.ip cfg.networking.hostName cfg.lib.vpn.fqdn]
           ++ lib.optional (publicIP != null) publicIP
           ++ lib.optional (localIP != null) localIP;
         publicKey = sshPublicKey;

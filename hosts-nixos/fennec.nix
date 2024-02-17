@@ -20,9 +20,18 @@ in {
     services.nix-builder.enable = true;
     services.kubernetes = {
       enable = true;
+      vpn = {
+        enable = true;
+        publicKey = "Ldi95uMjhQvfGsbsOxzvlWbOUdTWArCLEEiyqxD1LU4=";
+        privateKeyFile = "/etc/nicos/vpn.key"; # TODO temporary. Use agenix
+      };
       fleet = {
         enable = true;
         mode = "upstream";
+        labels = {
+          apache = "enabled";
+          hostname = "${config.lib.vpn.ip}.sslip.io";
+        };
       };
     };
   };
@@ -69,6 +78,7 @@ in {
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator
     hplipWithPlugin
+    dhcping
   ];
 
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
@@ -232,7 +242,7 @@ in {
   # };
 
   # TODO configure
-  services.malcontent.enable = true;
+  # services.malcontent.enable = true;
 
   # * User: pilou
   home-manager.users.pilou = import ../home-manager/pilou-gui.nix;

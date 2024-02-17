@@ -1,3 +1,5 @@
+## On Darwin, set /etc/hosts
+
 ## rsync -> rclone script and cron for ~dev
 
 send to onedrive, but online only

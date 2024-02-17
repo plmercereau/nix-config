@@ -20,8 +20,6 @@
         mode = "downstream";
         labels = {
           apache = "enabled";
-        };
-        values = {
           hostname = "${config.settings.networking.publicIP}.sslip.io";
         };
       };

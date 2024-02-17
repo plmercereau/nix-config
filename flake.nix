@@ -63,17 +63,23 @@
     }));
   in (conf
     // {
-      darwinConfigurations = {
-        badger = nix-darwin.lib.darwinSystem {
+      darwinConfigurations = let
+        specialArgs = {
+          inherit (conf) nixosConfigurations;
+          inherit agenix;
+        };
+      in {
+        badger = nix-darwin.lib.darwinSystem rec {
           modules = [
             ./modules/darwin
             ./hosts-darwin/badger.nix
             agenix.darwinModules.default
             home-manager.darwinModules.home-manager
+            {
+              home-manager.extraSpecialArgs = specialArgs;
+            }
           ];
-          specialArgs = {
-            inherit (conf) nixosConfigurations;
-          };
+          inherit specialArgs;
         };
       };
     });
