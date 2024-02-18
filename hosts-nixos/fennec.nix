@@ -31,8 +31,6 @@ in {
         mode = "upstream";
         labels = {
           apache = "enabled";
-          # hostname = "${config.lib.vpn.ip}.sslip.io";
-          hostname = "${config.networking.hostName}.cluster";
         };
       };
     };

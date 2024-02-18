@@ -20,7 +20,7 @@ with lib; {
     })
     nixosConfigurations;
 
-  environment.etc."ssh/sshd_config.d/300-hosts.conf".text = builtins.concatStringsSep "\n" (lib.mapAttrsToList (
+  environment.etc."ssh/ssh_config.d/300-hosts.conf".text = builtins.concatStringsSep "\n" (lib.mapAttrsToList (
       name: machine: let
         cfg = machine.config;
         inherit (cfg.settings.networking) publicIP publicDomain localIP localDomain vpn;
