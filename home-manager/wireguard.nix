@@ -22,6 +22,7 @@ with lib; let
       # TODO if we want to make this home-manager module more generic, postup and postdown should work for other non-macOS systems
       PostUp = let
         # TODO for some reason, ${config.age.secrets.vpn.path} does not point to the right place when used in PostUp
+        # ? Maybe: https://github.com/ryantm/agenix/issues/50#issuecomment-1926893522
         privateKeyPath = "/run/agenix/vpn";
       in
         pkgs.writeShellScript "postup.sh" ''

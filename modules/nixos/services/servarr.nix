@@ -50,7 +50,13 @@ in {
       proxyPass = "http://127.0.0.1:6767";
     };
   };
-  systemd.services.radarr.serviceConfig.UMask = lib.mkIf radarr.enable "0007"; # create files with 770 permissions
-  systemd.services.sonarr.serviceConfig.UMask = lib.mkIf sonarr.enable "0007"; # create files with 770 permissions
-  systemd.services.bazarr.serviceConfig.UMask = lib.mkIf bazarr.enable "0007"; # create files with 770 permissions
+  systemd.services.radarr = lib.mkIf radarr.enable {
+    serviceConfig.UMask = "0007"; # create files with 770 permissions
+  };
+  systemd.services.sonarr = lib.mkIf sonarr.enable {
+    serviceConfig.UMask = "0007"; # create files with 770 permissions
+  };
+  systemd.services.bazarr = lib.mkIf bazarr.enable {
+    serviceConfig.UMask = "0007"; # create files with 770 permissions
+  };
 }

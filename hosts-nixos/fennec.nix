@@ -6,6 +6,7 @@
   ...
 }: let
   common = "common";
+  media = false;
 in {
   imports = [hardware.nuc ../modules/nixos];
 
@@ -30,7 +31,8 @@ in {
         mode = "upstream";
         labels = {
           apache = "enabled";
-          hostname = "${config.lib.vpn.ip}.sslip.io";
+          # hostname = "${config.lib.vpn.ip}.sslip.io";
+          hostname = "${config.networking.hostName}.cluster";
         };
       };
     };
@@ -88,18 +90,18 @@ in {
   # conflicts on port 80 (k3s enables traefik)
   services.nginx.enable = !config.settings.services.kubernetes.enable;
 
-  services.transmission.enable = true;
+  services.transmission.enable = media;
   services.transmission.group = common;
-  services.jellyfin.enable = true;
+  services.jellyfin.enable = media;
   services.jellyfin.group = common;
 
-  services.radarr.enable = true;
+  services.radarr.enable = media;
   services.radarr.group = common;
-  services.sonarr.enable = true;
+  services.sonarr.enable = media;
   services.sonarr.group = common;
-  services.prowlarr.enable = true;
+  services.prowlarr.enable = media;
   services.bazarr.group = common;
-  services.bazarr.enable = true;
+  services.bazarr.enable = media;
 
   # TODO...
   networking.enableIPv6 = false;
