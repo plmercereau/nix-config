@@ -26,7 +26,7 @@ with lib; {
 
   time.timeZone = "Europe/Brussels";
   settings = {
-    networking.vpn.enable = true;
+    vpn.enable = true;
     users.users = {
       pilou = {
         enable = true;
@@ -38,7 +38,7 @@ with lib; {
   home-manager.users.pilou = import ./home-manager/pilou-minimal.nix;
   users.users.pilou.extraGroups =
     # pilou is a member of the kubernetes admin group, if kubernetes is enabled
-    (optional config.settings.services.kubernetes.enable config.settings.services.kubernetes.group)
+    (optional config.settings.kubernetes.enable config.settings.kubernetes.group)
     # pilou is a member of the gitDaemon group, if gitDaemon is enabled
     ++ (optional config.services.gitDaemon.enable config.services.gitDaemon.group);
 }

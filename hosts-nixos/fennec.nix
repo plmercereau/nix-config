@@ -12,20 +12,14 @@ in {
 
   settings = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIM5l9qxM+KFhsxJR1ZM0QYu/s5VHJQAARnuSDi4iIkP";
-    networking = {
-      localIP = "10.136.1.11";
-      vpn.publicKey = "PGpF36QtpwlEuqJTqxjTMiXKq5DBUKM133UYvLuMS0A=";
-      vpn.id = 6;
-    };
+    localIP = "10.136.1.11";
+    vpn.publicKey = "PGpF36QtpwlEuqJTqxjTMiXKq5DBUKM133UYvLuMS0A=";
+    vpn.id = 6;
 
-    services.nix-builder.enable = true;
-    services.kubernetes = {
+    nix-builder.enable = true;
+    kubernetes = {
       enable = true;
-      vpn = {
-        enable = true;
-        publicKey = "Ldi95uMjhQvfGsbsOxzvlWbOUdTWArCLEEiyqxD1LU4=";
-        privateKeyFile = "/etc/nicos/vpn.key"; # TODO temporary. Use agenix
-      };
+      mdns.enable = true;
       fleet = {
         enable = true;
         mode = "upstream";
@@ -86,7 +80,7 @@ in {
   networking.networkmanager.unmanaged = ["wlo1"];
 
   # conflicts on port 80 (k3s enables traefik)
-  services.nginx.enable = !config.settings.services.kubernetes.enable;
+  services.nginx.enable = !config.settings.kubernetes.enable;
 
   services.transmission.enable = media;
   services.transmission.group = common;
