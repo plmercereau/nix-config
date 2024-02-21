@@ -45,6 +45,7 @@ in {
         yzhang.markdown-all-in-one
         ms-python.python
         mkhl.direnv
+        ms-kubernetes-tools.vscode-kubernetes-tools
       ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
@@ -71,6 +72,12 @@ in {
           version = "1.8.27";
           sha256 = "sha256-6FktlAJmOD3dQNn2TV83ROw41NXZ/MgquB0RFQqwwW0=";
         }
+        {
+          name = "kubernetes-yaml-formatter";
+          publisher = "kennylong";
+          version = "1.1.0";
+          sha256 = "sha256-bAdMQxefeqedBdLiYqFBbuSN0auKAs4SKnrqK9/m65c=";
+        }
       ];
     userSettings =
       {
@@ -88,8 +95,14 @@ in {
         "workbench.colorTheme" = "Gruvbox Dark Medium";
       }
       // lib.optionalAttrs (builtins.elem pkgs.vscode-extensions.esbenp.prettier-vscode extensions) {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
         "[json]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+        "[yaml]" = {
+          # * See: https://github.com/vscode-kubernetes-tools/vscode-kubernetes-tools/issues/573
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          "editor.formatOnSave" = false;
         };
         "[html]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";

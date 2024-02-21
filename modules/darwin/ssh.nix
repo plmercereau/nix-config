@@ -9,8 +9,7 @@ with lib; {
   programs.ssh.knownHosts =
     lib.mapAttrs (name: machine: let
       cfg = machine.config;
-      inherit (cfg.settings) sshPublicKey;
-      inherit (cfg.settings.networking) publicIP localIP vpn;
+      inherit (cfg.settings) sshPublicKey publicIP localIP vpn;
     in {
       hostNames =
         lib.optionals vpn.enable [cfg.lib.vpn.ip name cfg.lib.vpn.fqdn]
@@ -23,17 +22,17 @@ with lib; {
   environment.etc."ssh/ssh_config.d/300-hosts.conf".text = builtins.concatStringsSep "\n" (lib.mapAttrsToList (
       name: machine: let
         cfg = machine.config;
-        inherit (cfg.settings.networking) publicIP publicDomain localIP localDomain vpn;
+        inherit (cfg.settings) publicIP localIP vpn;
       in
         # Use the local IP if it is available
         lib.optionalString (localIP != null) ''
-          Match Originalhost ${name}.${localDomain}
+          Match Originalhost ${name}.local
             Hostname ${localIP}
         ''
         +
         # Use the public IP if available.
         lib.optionalString (publicIP != null) ''
-          Match Originalhost ${name}.${publicDomain}
+          Match Originalhost ${name}.public
             Hostname ${publicIP}
         ''
         +

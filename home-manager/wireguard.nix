@@ -8,17 +8,18 @@
 }:
 with lib; let
   interface = "wg0";
-  bastion = (findFirst (machine: machine.config.settings.networking.vpn.bastion.enable) (throw "bastion not found") (attrValues nixosConfigurations)).config;
-  inherit (bastion.settings.networking.vpn.bastion) port;
+  bastion = (findFirst (machine: machine.config.settings.vpn.bastion.enable) (throw "bastion not found") (attrValues nixosConfigurations)).config;
   inherit (config.home) username;
-  inherit (bastion.settings.networking.vpn.bastion.extraPeers.${username}) id;
+  inherit (bastion.settings.vpn.bastion.extraPeers.${username}) id;
 
-  hostNetwork = bastion.settings.networking.vpn.bastion;
-  k8sNetwork = bastion.settings.services.kubernetes.vpn;
+  inherit (bastion.settings.vpn.bastion) port;
+  hostNetwork = bastion.settings.vpn.bastion;
+  k8sNetwork = bastion.settings.kubernetes.vpn;
+  inherit (bastion.lib.vpn) machineIp;
 
   baseConfig = {
     Interface = {
-      Address = [(bastion.lib.vpn.machineIp hostNetwork.cidr id) (bastion.lib.vpn.machineIp k8sNetwork.cidr id)];
+      Address = [(machineIp hostNetwork.cidr id) (machineIp k8sNetwork.cidr id)];
       # TODO if we want to make this home-manager module more generic, postup and postdown should work for other non-macOS systems
       PostUp = let
         # TODO for some reason, ${config.age.secrets.vpn.path} does not point to the right place when used in PostUp
@@ -33,13 +34,13 @@ with lib; let
           port 53
           domain ${hostNetwork.domain}
           search ${hostNetwork.domain}
-          nameserver ${bastion.lib.vpn.machineIp hostNetwork.cidr bastion.settings.networking.vpn.id}
+          nameserver ${machineIp hostNetwork.cidr bastion.settings.vpn.id}
           EOF
           cat << EOF > /etc/resolver/${k8sNetwork.domain}
           port 53
           domain ${k8sNetwork.domain}
           search ${k8sNetwork.domain}
-          nameserver ${bastion.lib.vpn.machineIp k8sNetwork.cidr bastion.settings.networking.vpn.id}
+          nameserver ${machineIp k8sNetwork.cidr bastion.settings.vpn.id}
           EOF
         '';
       PostDown = pkgs.writeShellScript "postdown.sh" ''
@@ -48,9 +49,9 @@ with lib; let
       '';
     };
     Peer = {
-      PublicKey = bastion.settings.networking.vpn.publicKey;
+      PublicKey = bastion.settings.vpn.publicKey;
       AllowedIPs = [hostNetwork.cidr k8sNetwork.cidr];
-      Endpoint = "${bastion.settings.networking.publicIP}:${toString port}";
+      Endpoint = "${bastion.settings.publicIP}:${toString port}";
       PersistentKeepalive = 25;
     };
   };
