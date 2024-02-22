@@ -11,14 +11,6 @@
     vpn.publicKey = "jW/AbaW8SSBKHUdYiSWQKuecN4Z1C04VcEnnin+A5y0=";
     vpn.id = 7;
 
-    kubernetes = {
-      enable = true;
-      fleet = {
-        enable = true;
-        mode = "downstream";
-        labels = {
-        };
-      };
-    };
+    kubernetes.enable = true;
   };
 }

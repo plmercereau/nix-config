@@ -17,16 +17,17 @@ in {
     vpn.id = 6;
 
     nix-builder.enable = true;
+
     kubernetes = {
       enable = true;
-      mdns.enable = true;
-      fleet = {
-        enable = true;
-        mode = "upstream";
-        labels = {
-          apache = "enabled";
-        };
-      };
+      mdns.enable = true; # TODO settings.local-server.enable = true -> label: local-server
+    };
+
+    prometheus.federation.upstream.enable = true;
+
+    fleet = {
+      upstream.enable = true;
+      labels.test = "enabled";
     };
   };
 

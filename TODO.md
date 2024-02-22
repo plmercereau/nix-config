@@ -1,3 +1,7 @@
+## deploy-rs
+
+Now supposed to work with sudo. Adapt accordingly
+
 ## On Darwin, set /etc/hosts
 
 ## rsync -> rclone script and cron for ~dev

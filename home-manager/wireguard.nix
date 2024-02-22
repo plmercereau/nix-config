@@ -7,7 +7,6 @@
   ...
 }:
 with lib; let
-  interface = "wg0";
   bastion = (findFirst (machine: machine.config.settings.vpn.bastion.enable) (throw "bastion not found") (attrValues nixosConfigurations)).config;
   inherit (config.home) username;
   inherit (bastion.settings.vpn.bastion.extraPeers.${username}) id;
