@@ -140,7 +140,7 @@ in {
   users.groups.${common} = {};
 
   home-manager.users.${common} = {lib, ...}: {
-    home.stateVersion = "23.05";
+    home.stateVersion = "24.05";
     # ? remote "online" mount: onedriver: https://github.com/jordanisaacs/dotfiles/blob/42c02301984a1e2c4da6f3a88914545feda00360/modules/users/office365/default.nix#L52
 
     home.packages = [pkgs.onedrive];

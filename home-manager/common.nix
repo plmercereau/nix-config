@@ -8,7 +8,7 @@
     ./zsh
   ];
 
-  home.stateVersion = lib.mkDefault "23.05";
+  home.stateVersion = lib.mkDefault "24.05";
 
   home.packages = with pkgs; [
     eza

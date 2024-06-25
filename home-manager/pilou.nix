@@ -10,7 +10,7 @@
   home.packages = with pkgs; [
     # asciinema # Recording + sharing terminal sessions
     # navi # Interactive cheat sheet
-    bitwarden-cli
+    # bitwarden-cli # not working in latest nixpkgs
     cocogitto
     ctop # container metrics & monitoring
     fdupes # Duplicate file finder
