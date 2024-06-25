@@ -27,8 +27,14 @@ in {
     speedtest-cli # Command line speed test utility
     tmux
     wget
+    unzip
     wireguard-tools
+    ncdu # disk usage
+    kubectl
     k9s # Kubernetes CLI UI
+    (writeScriptBin "kube-debug" ''
+      ${kubectl}/bin/kubectl run debug --rm -i --tty --image nicolaka/netshoot
+    '')
   ];
 
   programs.git = {

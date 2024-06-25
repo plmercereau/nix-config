@@ -27,10 +27,11 @@ in {
       "Microsoft Word" = 462054704;
       "Microsoft Excel" = 462058435;
       "Microsoft PowerPoint" = 462062816;
+      Bitwarden = 1352778147;
     };
 
     casks = [
-      "bitwarden"
+      # "bitwarden" # ! do not install from brew to get all the features
       "jellyfin-media-player"
       "raycast" # Raycast is a replacement of Spotlight that manages the launch of apps installed with nix
       "tailscale"

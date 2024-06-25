@@ -1,10 +1,25 @@
 {
   pkgs,
   config,
+  nixosConfigurations,
   ...
 }: {
   nixpkgs.hostPlatform = "aarch64-darwin";
   nix.settings.cores = 8;
+
+  nix.buildMachines = [
+    {
+      hostName = "fennec";
+      supportedFeatures = ["kvm" "benchmark" "big-parallel"];
+      speedFactor = 1;
+      maxJobs = 8;
+      sshUser = "pilou";
+      sshKey = "/Users/pilou/.ssh/id_ed25519";
+      protocol = "ssh-ng";
+      systems = ["x86_64-linux"];
+    }
+  ];
+
   networking.hostName = "badger";
 
   # TODO reconfigure
@@ -13,7 +28,7 @@
   custom = {
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
-    linux-builder.enable = true;
+    # linux-builder.enable = true;
     # linux-builder.initialBuild = true;
   };
 
@@ -24,32 +39,34 @@
   # };
 
   homebrew.casks = [
+    "spaceman" # Show spaces in the menu bar
     "arduino"
     "balenaetcher"
     "docker"
-    "goldencheetah"
+    # "goldencheetah"
     "google-chrome" # nix package only for linux
     "grammarly-desktop"
-    "grammarly"
+    # "grammarly" # TODO discontinued - use MAS
     "notion"
-    "skype-for-business"
-    "skype"
+    # "skype-for-business"
+    # "skype"
     "sonos"
-    "steam" # not available on nixpkgs
-    "supertuxkart" # for kids
+    # "steam" # not available on nixpkgs
+    # "supertuxkart" # for kids
+    # "virtualbox" # ! not available on M1
     "webex"
     "zwift"
   ];
 
   homebrew.masApps = {
-    "HP Smart for Desktop" = 1474276998;
+    # "HP Smart for Desktop" = 1474276998;
   };
 
   users.users.pilou.home = "/Users/pilou";
   home-manager.users.pilou = {
     imports = [
       ../home-manager/pilou-gui.nix
-      ../home-manager/wireguard.nix
+      # ../home-manager/wireguard.nix
     ];
 
     home.packages = with pkgs; [

@@ -31,7 +31,8 @@
       superTuxKart
       hedgewars
       # freeciv # ? too early?
-      # lutris # ? see later
+      lutris # game manager
+      wine
       # iina # TODO vlc, as iina is not available for linux. Or: https://github.com/mpv-player/mpv/wiki/Applications-using-mpv
       openshot-qt # TODO find the simplest video editor: https://filmora.wondershare.com/video-editor/free-linux-video-editor.html
     ]

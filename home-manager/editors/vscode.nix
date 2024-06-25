@@ -32,13 +32,14 @@ in {
         dbaeumer.vscode-eslint
         esbenp.prettier-vscode
         github.copilot
+        github.copilot-chat
         graphql.vscode-graphql
         graphql.vscode-graphql-syntax
         jdinhlife.gruvbox
         kamadorueda.alejandra
         ms-azuretools.vscode-docker
         ms-vscode-remote.remote-ssh
-        redhat.vscode-yaml
+        # redhat.vscode-yaml
         tamasfe.even-better-toml
         unifiedjs.vscode-mdx
         vscode-icons-team.vscode-icons
@@ -46,8 +47,16 @@ in {
         ms-python.python
         mkhl.direnv
         ms-kubernetes-tools.vscode-kubernetes-tools
+        hashicorp.terraform
+        golang.go
       ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "platformio-ide";
+          publisher = "platformio";
+          version = "3.3.3";
+          sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
+        }
         {
           name = "better-comments";
           publisher = "aaron-bond";
@@ -63,8 +72,8 @@ in {
         {
           name = "vscode-nushell-lang";
           publisher = "TheNuProjectContributors";
-          version = "1.6.0";
-          sha256 = "sha256-UTr1Z9lz1U7IDY3GtZkyFwhUj7FpZgbr3G4dI8AymKU=";
+          version = "1.9.0";
+          sha256 = "sha256-E9CK/GChd/yZT+P3ttROjL2jHtKPJ0KZzc32/nbuE4w=";
         }
         {
           name = "volar";
@@ -72,11 +81,17 @@ in {
           version = "1.8.27";
           sha256 = "sha256-6FktlAJmOD3dQNn2TV83ROw41NXZ/MgquB0RFQqwwW0=";
         }
+        # {
+        #   name = "kubernetes-yaml-formatter";
+        #   publisher = "kennylong";
+        #   version = "1.1.0";
+        #   sha256 = "sha256-bAdMQxefeqedBdLiYqFBbuSN0auKAs4SKnrqK9/m65c=";
+        # }
         {
-          name = "kubernetes-yaml-formatter";
-          publisher = "kennylong";
-          version = "1.1.0";
-          sha256 = "sha256-bAdMQxefeqedBdLiYqFBbuSN0auKAs4SKnrqK9/m65c=";
+          name = "tilt";
+          publisher = "Tchoupinax";
+          version = "1.0.9";
+          sha256 = "sha256-PbZiCz+D699gURdSisAITBvDQml8eQJOE3uxUBKA3Dk=";
         }
       ];
     userSettings =
@@ -93,22 +108,29 @@ in {
         "update.mode" = "none";
         "window.zoomLevel" = 1.2;
         "workbench.colorTheme" = "Gruvbox Dark Medium";
+        "files.associations" = {
+          "*.yaml.tpl" = "yaml";
+        };
+        "editor.minimap.enabled" = false;
       }
       // lib.optionalAttrs (builtins.elem pkgs.vscode-extensions.esbenp.prettier-vscode extensions) {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
         "[json]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
-        "[yaml]" = {
-          # * See: https://github.com/vscode-kubernetes-tools/vscode-kubernetes-tools/issues/573
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          "editor.formatOnSave" = false;
-        };
+        # "[yaml]" = {
+        #   # * See: https://github.com/vscode-kubernetes-tools/vscode-kubernetes-tools/issues/573
+        #   "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        #   "editor.formatOnSave" = false;
+        # };
         "[html]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
         "[markdown]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+        "[go]" = {
+          "editor.defaultFormatter" = "golang.go";
         };
       };
     keybindings = [

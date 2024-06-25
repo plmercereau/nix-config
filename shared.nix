@@ -7,6 +7,18 @@
   ...
 }:
 with lib; {
+  settings = {
+    tailnet = "tailc84e6.ts.net";
+    kubernetes.oauthClientId = "k4dhpL3CNTRL";
+    users.users = {
+      pilou = {
+        enable = true;
+        isAdmin = true;
+        publicKeys = cluster.adminKeys;
+      };
+    };
+  };
+
   nixpkgs.config.allowUnfree = true;
   home-manager = {
     useGlobalPkgs = true;
@@ -18,23 +30,13 @@ with lib; {
   environment.pathsToLink = ["/share/zsh"];
 
   # TODO only if ui is enabled
-  fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
     meslo-lg
     meslo-lgs-nf
   ];
 
   time.timeZone = "Europe/Brussels";
-  settings = {
-    vpn.enable = true;
-    users.users = {
-      pilou = {
-        enable = true;
-        isAdmin = true;
-        publicKeys = cluster.adminKeys;
-      };
-    };
-  };
+
   home-manager.users.pilou = import ./home-manager/pilou-minimal.nix;
   users.users.pilou.extraGroups =
     # pilou is a member of the kubernetes admin group, if kubernetes is enabled

@@ -16,7 +16,7 @@ in {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     autocd = true;
     dotDir = ".config/zsh";
@@ -41,6 +41,7 @@ in {
     in ''
       ${p10k}
       ${zshrc}
+      ${lib.optionalString isDarwin "hash /opt/homebrew/bin/brew 2>/dev/null && eval \"$(/opt/homebrew/bin/brew shellenv)\""}
     '';
   };
 }

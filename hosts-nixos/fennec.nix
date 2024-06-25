@@ -10,26 +10,48 @@
 in {
   imports = [hardware.nuc ../modules/nixos];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
+  fonts.packages = with pkgs; [
+    corefonts # Microsoft fonts, required by some games
+  ];
+
+  # Supertuxkart
+  # networking.firewall.allowedTCPPorts = [2757 2759];
+  networking.firewall.allowedTCPPorts = [2757 2759 64172];
+  # networking.firewall.allowedUDPPorts = [2757 2759 ];
+  networking.firewall.allowedUDPPorts = [2757 2759 67 69 4011];
+
+  virtualisation.docker.enable = true;
+  # users.users.pilou.extraGroups = ["docker"];
+
   settings = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIM5l9qxM+KFhsxJR1ZM0QYu/s5VHJQAARnuSDi4iIkP";
     localIP = "10.136.1.11";
-    vpn.publicKey = "PGpF36QtpwlEuqJTqxjTMiXKq5DBUKM133UYvLuMS0A=";
-    vpn.id = 6;
 
-    nix-builder.enable = true;
+    # nix-builder.enable = true;
 
     kubernetes = {
-      enable = true;
-      mdns.enable = true; # TODO settings.local-server.enable = true -> label: local-server
+      enable = false;
+      # labels.test = "enabled";
     };
 
-    prometheus.federation.upstream.enable = true;
-
-    fleet = {
-      upstream.enable = true;
-      labels.test = "enabled";
-    };
+    # prometheus.federation.upstream.enable = true;
+    local-server.enable = true;
+    # fleet-manager.enable = true;
+    rancher.enable = false;
   };
+
+  # services.pixiecore.enable = true;
+  # services.pixiecore.openFirewall = true;
+  # # services.pixiecore.mode = "quick";
+  # # services.pixiecore.quick = "ubuntu";
+  # services.pixiecore.dhcpNoBind = true;
+  # services.pixiecore.kernel = "https://boot.netboot.xyz";
 
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
@@ -187,7 +209,7 @@ in {
       {
         name = "printer";
         location = "home";
-        # TODO configure through vpn
+        # TODO configure through tailscale
         deviceUri = "hp:/net/HP_OfficeJet_Pro_9020_series?ip=10.136.1.44";
         model = "drv:///hp/hpcups.drv/hp-officejet_pro_9020_series.ppd";
         ppdOptions = {
@@ -240,8 +262,8 @@ in {
   # services.malcontent.enable = true;
 
   # * User: pilou
-  home-manager.users.pilou = import ../home-manager/pilou-gui.nix;
-  users.users.pilou.extraGroups = [common];
+  home-manager.users.pilou = import ../home-manager/pilou.nix;
+  users.users.pilou.extraGroups = [common "docker"];
 
   # * User: kids
   settings.users.users.kids.enable = true;

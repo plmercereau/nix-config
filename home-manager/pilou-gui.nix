@@ -18,7 +18,7 @@ in {
     [
       spotify
       zoom-us
-      dbeaver
+      # dbeaver-bin # TODO not supported on darwin (anymore)
       qbittorrent
     ]
     ++ lib.optionals isLinux [

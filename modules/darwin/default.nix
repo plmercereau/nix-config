@@ -23,9 +23,6 @@ in {
     ./ui
   ];
 
-  # "fonts" renamed to "packages" in nixos, but not in nix-darwin
-  options.fonts.packages = options.fonts.fonts;
-
   config = {
     time.timeZone = "Europe/Brussels";
 
@@ -38,12 +35,6 @@ in {
     programs.zsh.enable = true;
     # * Required for zsh completion, see: https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.enableCompletion
     environment.pathsToLink = ["/share/zsh"];
-
-    fonts.fontDir.enable = true;
-    fonts.packages = with pkgs; [
-      meslo-lg
-      meslo-lgs-nf
-    ];
 
     # Enable sudo authentication with Touch ID
     # See: https://daiderd.com/nix-darwin/manual/index.html#opt-security.pam.enableSudoTouchIdAuth
