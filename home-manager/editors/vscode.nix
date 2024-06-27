@@ -88,6 +88,12 @@ in {
         #   sha256 = "sha256-bAdMQxefeqedBdLiYqFBbuSN0auKAs4SKnrqK9/m65c=";
         # }
         {
+          name = "esp-idf-extension";
+          publisher = "espressif";
+          version = "1.7.1";
+          sha256 = "sha256-6WemXuS8JIjDYBXfNcrH9ErQj7LigqqxjEXcs0IhYbA=";
+        }
+        {
           name = "tilt";
           publisher = "Tchoupinax";
           version = "1.0.9";
