@@ -31,6 +31,7 @@ in {
         bbenoist.nix
         dbaeumer.vscode-eslint
         esbenp.prettier-vscode
+        vue.volar
         github.copilot
         github.copilot-chat
         graphql.vscode-graphql
@@ -39,7 +40,7 @@ in {
         kamadorueda.alejandra
         ms-azuretools.vscode-docker
         ms-vscode-remote.remote-ssh
-        # redhat.vscode-yaml
+        redhat.vscode-yaml
         tamasfe.even-better-toml
         unifiedjs.vscode-mdx
         vscode-icons-team.vscode-icons
@@ -75,24 +76,37 @@ in {
           version = "1.9.0";
           sha256 = "sha256-E9CK/GChd/yZT+P3ttROjL2jHtKPJ0KZzc32/nbuE4w=";
         }
-        {
-          name = "volar";
-          publisher = "Vue";
-          version = "1.8.27";
-          sha256 = "sha256-6FktlAJmOD3dQNn2TV83ROw41NXZ/MgquB0RFQqwwW0=";
-        }
         # {
         #   name = "kubernetes-yaml-formatter";
         #   publisher = "kennylong";
         #   version = "1.1.0";
         #   sha256 = "sha256-bAdMQxefeqedBdLiYqFBbuSN0auKAs4SKnrqK9/m65c=";
         # }
-        {
-          name = "esp-idf-extension";
-          publisher = "espressif";
-          version = "1.7.1";
-          sha256 = "sha256-6WemXuS8JIjDYBXfNcrH9ErQj7LigqqxjEXcs0IhYbA=";
-        }
+        # {
+        #   name = "esp-idf-extension";
+        #   publisher = "espressif";
+        #   version = "1.7.1";
+        #   sha256 = "sha256-6WemXuS8JIjDYBXfNcrH9ErQj7LigqqxjEXcs0IhYbA=";
+        # }
+        # # TODO somehow conflicts with platformio. Try the version installed by pio (1.20.5)
+        # {
+        #   name = "cpptools";
+        #   publisher = "ms-vscode";
+        #   version = "1.21.0";
+        #   sha256 = "sha256-hhH5GCvHiXlKPur9YkJSpz4IAPpCbu46Mu0t1SBGr4Q=";
+        # }
+        # {
+        #   name = "vscode-arduino";
+        #   publisher = "vsciot-vscode";
+        #   version = "0.6.0";
+        #   sha256 = "sha256-fPzY1SI5OAMUlP0FdqPHC5xQIzf7QyG7Uc3RHLmccEY=";
+        # }
+        # {
+        #   name = "vscode-serial-monitor";
+        #   publisher = "ms-vscode";
+        #   version = "0.12.0";
+        #   sha256 = "sha256-G4F5uUILP43QpUteHDMw8WOeftBuNHC+yF/HHtGTKh0=";
+        # }
         {
           name = "tilt";
           publisher = "Tchoupinax";
@@ -118,10 +132,45 @@ in {
           "*.yaml.tpl" = "yaml";
         };
         "editor.minimap.enabled" = false;
+        "terminal.integrated.enableMultiLinePasteWarning" = "always";
+        "security.workspace.trust.untrustedFiles" = "open";
+        "C_Cpp.intelliSenseEngine" = "Tag Parser";
+        "C_Cpp.clang_format_style" = "Google";
+        "grammarly.files.exclude" = [
+          "CMakeLists.txr"
+        ];
+        # "arduino.useArduinoCli" = false;
+        # "arduino.path" = "/opt/homebrew/bin/";
+        # "arduino.commandPath" = "arduino-cli";
+        "[go]" = {
+          "editor.defaultFormatter" = "golang.go";
+        };
       }
       // lib.optionalAttrs (builtins.elem pkgs.vscode-extensions.esbenp.prettier-vscode extensions) {
-        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "eslint.format.enable" = true;
+        "[javascript]" = {
+          "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
+        };
+        "[typescript]" = {
+          "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
+        };
+        "editor.codeActionsOnSave" = {
+          "source.organizeImports" = "always";
+          "source.fixAll" = "always";
+          "source.fixAll.eslint" = "always";
+          "source.fixAll.ts" = "always";
+          "source.addMissingImports.ts" = "always";
+          "source.removeUnused.ts" = "always";
+          "source.removeUnusedImports" = "always";
+          "source.sortImports" = "always";
+        };
+      }
+      // lib.optionalAttrs (builtins.elem pkgs.vscode-extensions.esbenp.prettier-vscode extensions) {
+        # "editor.defaultFormatter" = "esbenp.prettier-vscode";
         "[json]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+        "[jsonc]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
         # "[yaml]" = {
@@ -134,9 +183,6 @@ in {
         };
         "[markdown]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[go]" = {
-          "editor.defaultFormatter" = "golang.go";
         };
       };
     keybindings = [

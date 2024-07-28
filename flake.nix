@@ -7,7 +7,7 @@
     # (Hint: don't use nixos-unstable-small when enabling the linux-builder on a darwin)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nix-darwin.url = "github:lnl7/nix-darwin/master";
+    nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";

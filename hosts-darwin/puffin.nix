@@ -12,7 +12,6 @@
   };
 
   homebrew.casks = [
-    "arduino"
     "balenaetcher"
     "docker"
     "google-chrome" # nix package only for linux

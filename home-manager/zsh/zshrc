@@ -17,6 +17,8 @@ bindkey -M viins '^[[A' history-beginning-search-backward-end \
 hash go 2>/dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 hash yarn 2>/dev/null && export PATH=$PATH:$HOME/.yarn/bin
 hash dotnet 2>/dev/null && export PATH=$PATH:$HOME/.dotnet/tools
+# Rancher Manager path
+export PATH=$PATH:$HOME/.rd/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/flutter/flutter/bin
 hash kitty 2>/dev/null && alias ssh="kitty kitten ssh"
@@ -62,3 +64,5 @@ if which direnv &> /dev/null; then
         _direnv_hook__old "$@" 2> >(egrep -v '^direnv: (export)')
     }
 fi
+
+eval "$(/opt/homebrew/bin/brew shellenv)"

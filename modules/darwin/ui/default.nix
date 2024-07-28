@@ -79,6 +79,8 @@ in {
       extraConfig = ''
         # Reload sa when the dock restarts
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+        sudo yabai --load-sa
+        yabai -m config focus_follows_mouse autoraise
         yabai -m signal --add event=display_removed action="${yabai-extra}/bin/yabai-extra pull"
         yabai -m signal --add event=display_added action="${yabai-extra}/bin/yabai-extra push"
 
@@ -89,6 +91,7 @@ in {
         yabai -m rule --add label="zoom" "Zoom" manage="off"
         # avoid hiding excel column filter popups. See: https://github.com/koekeishiya/yabai/issues/1156
         yabai -m rule --add label="excel" app="Microsoft Excel" layer=below
+        osascript -e 'display notification  "Yabai configuration loaded"' && \
       '';
     };
 

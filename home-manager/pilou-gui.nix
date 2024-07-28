@@ -28,6 +28,11 @@ in {
       utm
       iina
       teams # not working on Linux
+    ]
+    ++ [
+      # Bluesquare tools
+      slack
+      _1password-gui
     ];
 
   # Works both with Gnome and MacOS

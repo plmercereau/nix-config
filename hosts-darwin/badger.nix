@@ -40,9 +40,10 @@
 
   homebrew.casks = [
     "spaceman" # Show spaces in the menu bar
-    "arduino"
     "balenaetcher"
-    "docker"
+    "protonvpn"
+    "rancher"
+    # "docker" # Either use docker or rancher, but not both
     # "goldencheetah"
     "google-chrome" # nix package only for linux
     "grammarly-desktop"
@@ -52,7 +53,6 @@
     # "skype"
     "sonos"
     # "steam" # not available on nixpkgs
-    # "supertuxkart" # for kids
     # "virtualbox" # ! not available on M1
     "webex"
     "zwift"

@@ -21,3 +21,7 @@ darwin-rebuild --flake . --override-input nicos ../nicos switch
 not working:
 nix run . --override-input nicos ../nicos -- deploy fennec
 ```
+
+From scratch (darwin-nix not installed):
+nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake . --override-input nicos ../nicos
+
