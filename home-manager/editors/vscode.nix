@@ -76,6 +76,12 @@ in {
           version = "1.9.0";
           sha256 = "sha256-E9CK/GChd/yZT+P3ttROjL2jHtKPJ0KZzc32/nbuE4w=";
         }
+        {
+          name = "toit";
+          publisher = "toit";
+          version = "1.8.8";
+          sha256 = "sha256-cgnoHn/S36uBpZN5RJwm/KCpmF90NqWT4Li6qz6x3qQ=";
+        }
         # {
         #   name = "kubernetes-yaml-formatter";
         #   publisher = "kennylong";
@@ -160,8 +166,6 @@ in {
           "source.fixAll.eslint" = "always";
           "source.fixAll.ts" = "always";
           "source.addMissingImports.ts" = "always";
-          "source.removeUnused.ts" = "always";
-          "source.removeUnusedImports" = "always";
           "source.sortImports" = "always";
         };
       }

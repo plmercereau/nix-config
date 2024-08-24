@@ -50,19 +50,37 @@ n ()
 
 # Mute some of the direnv output
 # See: https://github.com/direnv/direnv/issues/68#issuecomment-1003426550
+# TODO conflicts with the following direnv hook
+# if which direnv &> /dev/null; then
+#     eval "$(direnv hook zsh)"
+
+#     copy_function() {
+#         test -n "$(declare -f "$1")" || return 
+#         eval "${_/$1/$2}"
+#     }
+
+#     copy_function _direnv_hook _direnv_hook__old
+
+#     _direnv_hook() {
+#         _direnv_hook__old "$@" 2> >(egrep -v '^direnv: (export)')
+#     }
+# fi
+
 if which direnv &> /dev/null; then
-    eval "$(direnv hook zsh)"
-
-    copy_function() {
-        test -n "$(declare -f "$1")" || return 
-        eval "${_/$1/$2}"
-    }
-
-    copy_function _direnv_hook _direnv_hook__old
-
     _direnv_hook() {
-        _direnv_hook__old "$@" 2> >(egrep -v '^direnv: (export)')
+    trap -- '' SIGINT
+    eval "$("direnv" export zsh)"
+    compinit 2> /dev/null
+    trap - SIGINT
     }
+    typeset -ag precmd_functions
+    if (( ! ${precmd_functions[(I)_direnv_hook]} )); then
+    precmd_functions=(_direnv_hook $precmd_functions)
+    fi
+    typeset -ag chpwd_functions
+    if (( ! ${chpwd_functions[(I)_direnv_hook]} )); then
+    chpwd_functions=(_direnv_hook $chpwd_functions)
+    fi
 fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"

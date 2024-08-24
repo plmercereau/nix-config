@@ -35,6 +35,7 @@ in {
       "jellyfin-media-player"
       "raycast" # Raycast is a replacement of Spotlight that manages the launch of apps installed with nix
       "tailscale"
+      "asana"
     ];
   };
 
