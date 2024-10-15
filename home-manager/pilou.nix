@@ -22,6 +22,7 @@
     w3m # text-based web browser
     tcpdump
     pandoc # document converter e.g. markdown to pdf
+    devenv
   ];
 
   # * See: https://mipmip.github.io/home-manager-option-search/?query=programs.gh

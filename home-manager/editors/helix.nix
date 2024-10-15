@@ -33,7 +33,7 @@
     # haskellPackages.haskell-language-server # Haskell
 
     nodePackages.typescript-language-server # Typescript
-    nodePackages.vim-language-server # Vim
+    # nodePackages.vim-language-server # Vim TODO broken
     nodePackages.yaml-language-server # YAML / JSON
 
     # luajitPackages.lua-lsp # Lua

@@ -43,7 +43,8 @@ in {
     # prometheus.federation.upstream.enable = true;
     local-server.enable = true;
     # fleet-manager.enable = true;
-    rancher.enable = false;
+    # TODO disabled?
+    # rancher.enable = false;
   };
 
   # services.pixiecore.enable = true;
@@ -65,32 +66,29 @@ in {
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
-  environment.gnome.excludePackages =
-    (with pkgs; [
-      gnome-tour
-    ])
-    ++ (with pkgs.gnome; [
-      atomix # puzzle game
-      cheese # webcam tool
-      epiphany # web browser
-      evince # document viewer
-      geary # email reader
-      gnome-bluetooth
-      gnome-calendar
-      gnome-characters
-      gnome-contacts
-      gnome-logs
-      gnome-music
-      gnome-nettool
-      gnome-power-manager
-      gnome-shell
-      gnome-terminal
-      hitori # sudoku game
-      iagno # go game
-      simple-scan
-      tali # poker game
-      totem # video player
-    ]);
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    atomix # puzzle game
+    cheese # webcam tool
+    epiphany # web browser
+    evince # document viewer
+    geary # email reader
+    gnome-bluetooth
+    gnome-calendar
+    gnome-characters
+    gnome-contacts
+    gnome-logs
+    gnome-music
+    gnome-nettool
+    gnome-power-manager
+    gnome-shell
+    gnome-terminal
+    hitori # sudoku game
+    iagno # go game
+    simple-scan
+    tali # poker game
+    totem # video player
+  ];
 
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator

@@ -42,10 +42,11 @@
     "spaceman" # Show spaces in the menu bar
     "balenaetcher"
     "protonvpn"
-    "rancher"
-    # "docker" # Either use docker or rancher, but not both
+    # "rancher"
+    "docker" # Either use docker or rancher, but not both
     # "goldencheetah"
     "google-chrome" # nix package only for linux
+    "google-drive" # no nix package
     "grammarly-desktop"
     # "grammarly" # TODO discontinued - use MAS
     "notion"
@@ -55,7 +56,9 @@
     # "steam" # not available on nixpkgs
     # "virtualbox" # ! not available on M1
     "webex"
+    # "supertuxkart"
     "zwift"
+    "microsoft-teams" # the "teams" nix package is not new enough
   ];
 
   homebrew.masApps = {

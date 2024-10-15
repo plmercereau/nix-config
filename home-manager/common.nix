@@ -53,8 +53,12 @@
     enableZshIntegration = false;
     nix-direnv.enable = true;
 
-    # devenv can be slow to load, we don't need a warning every time
-    config.global.warn_timeout = "3m";
+    config.global = {
+      # devenv can be slow to load, we don't need a warning every time
+      warn_timeout = "3m";
+      # hide unnecessary output from direnv
+      hide_env_diff = true;
+    };
   };
 
   programs.git = {

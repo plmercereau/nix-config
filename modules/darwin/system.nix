@@ -5,6 +5,7 @@
   ...
 }:
 with lib; {
+  system.stateVersion = 4;
   system.defaults.CustomUserPreferences = {
     # * See https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
     "com.apple.finder" = {

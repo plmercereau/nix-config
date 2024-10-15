@@ -8,7 +8,9 @@
 }:
 with lib; {
   settings = {
+    # TODO only on NixOS
     tailnet = "tailc84e6.ts.net";
+    # TODO only on NixOS
     kubernetes.oauthClientId = "k4dhpL3CNTRL";
     users.users = {
       pilou = {

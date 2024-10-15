@@ -27,12 +27,17 @@ in {
     ++ lib.optionals isDarwin [
       utm
       iina
-      teams # not working on Linux
     ]
     ++ [
       # Bluesquare tools
       slack
-      _1password-gui
+      # _1password-gui # TODO broken
+    ]
+    ++ [
+      skhd # TODO only if darwin and window manager option is enabled
+    ]
+    ++ [
+      superTuxKart
     ];
 
   # Works both with Gnome and MacOS
