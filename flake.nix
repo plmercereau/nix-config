@@ -25,8 +25,6 @@
       home-manager.follows = "home-manager";
       flake-utils.follows = "flake-utils";
     };
-
-    nur.url = github:nix-community/NUR;
   };
 
   outputs = {
@@ -36,11 +34,10 @@
     nix-darwin,
     agenix,
     home-manager,
-    nur,
     ...
   }: let
     # conf = nicos.lib.configure (import ./config.nix) (flake-utils.lib.eachDefaultSystem (system: let
-    conf = nicos.lib.configure ((import ./config.nix) // {extraModules = [./shared.nix nur.nixosModules.nur];}) (flake-utils.lib.eachDefaultSystem (system: let
+    conf = nicos.lib.configure ((import ./config.nix) // {extraModules = [./shared.nix];}) (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       # Use the devShells of the nicos flake

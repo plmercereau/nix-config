@@ -23,6 +23,7 @@
     tcpdump
     pandoc # document converter e.g. markdown to pdf
     devenv
+    kubernetes-helm
   ];
 
   # * See: https://mipmip.github.io/home-manager-option-search/?query=programs.gh
