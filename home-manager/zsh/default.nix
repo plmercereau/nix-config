@@ -31,7 +31,7 @@ in {
       enable = true;
       plugins = [
         "colored-man-pages" # * Man pages in color. See: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colored-man-pages
-        "git" # * Git aliases & functions. See: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+        # "git" # * Git aliases & functions. See: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
         # "globalias" # * Expands all glob expressions, subcommands and aliases. See: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/globalias
       ];
     };

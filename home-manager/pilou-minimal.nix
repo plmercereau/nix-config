@@ -11,6 +11,30 @@ in {
   ];
   programs.helix.defaultEditor = true;
 
+  home.shellAliases = {
+    k = "kubectl";
+
+    # Common kubectl commands
+    kga = "kubectl get all";
+    kgp = "kubectl get pods";
+    kgd = "kubectl get deployments";
+    kgn = "kubectl get namespaces";
+    kex = "kubectl exec -it";
+    kl = "kubectl logs";
+    kd = "kubectl delete";
+    kpf = "kubectl port-forward";
+    kap = "kubectl apply -f";
+
+    # Context and namespace management
+    kctx = "kubectl config use-context";
+    kns = "kubectl config set-context --current --namespace";
+
+    # Debugging aliases
+    kdesc = "kubectl describe";
+    kdel = "kubectl delete pod";
+    krestart = "kubectl rollout restart deployment";
+  };
+
   home.packages = with pkgs; [
     bandwhich # Bandwidth utilization monitor
     bind

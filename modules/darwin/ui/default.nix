@@ -87,6 +87,11 @@ in {
       '';
     };
 
+    # See: https://github.com/LnL7/nix-darwin/issues/333
+    system.activationScripts.postActivation.text = ''
+      su - "$(logname)" -c '${pkgs.skhd}/bin/skhd -r'
+    '';
+
     # * skhd no longer in path: fyi https://github.com/NixOS/nixpkgs/issues/246740
     services.skhd = {
       enable = true;

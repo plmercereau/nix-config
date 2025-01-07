@@ -45,6 +45,7 @@
     # "rancher"
     "docker" # Either use docker or rancher, but not both
     # "goldencheetah"
+    "ghostty" # TODO 1.0.1 nix package is broken
     "google-chrome" # nix package only for linux
     "google-drive" # no nix package
     "grammarly-desktop"
@@ -54,7 +55,7 @@
     # "skype"
     "sonos"
     # "steam" # not available on nixpkgs
-    # "virtualbox" # ! not available on M1
+    "virtualbox"
     "webex"
     # "supertuxkart"
     "zwift"

@@ -16,6 +16,7 @@ in {
 
   home.packages = with pkgs;
     [
+      # ghostty # TODO 1.0.1 is broken
       spotify
       zoom-us
       # dbeaver-bin # TODO not supported on darwin (anymore)
