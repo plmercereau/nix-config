@@ -130,5 +130,8 @@ in {
     };
   };
 
-  programs.yazi.enable = true; # CLI file browser
+  programs.yazi = {
+    enable = true; # CLI file browser
+    enableZshIntegration = true;
+  };
 }

@@ -28,18 +28,21 @@ in {
         file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       }
     ];
-    initExtra = let
+    initExtraBeforeCompInit = let
       p10k = builtins.readFile ./p10k.zsh;
     in ''
       ${p10k}
+
       hash go 2>/dev/null && export PATH=$PATH:$(go env GOPATH)/bin
       hash yarn 2>/dev/null && export PATH=$PATH:$HOME/.yarn/bin
       hash dotnet 2>/dev/null && export PATH=$PATH:$HOME/.dotnet/tools
       export PATH=$PATH:$HOME/.local/bin
 
+      # TODO get rid of this as soon as the ghostty nix package works
       ${lib.optionalString isDarwin ''
-        export PATH=$PATH:/opt/homebrew/bin
+        eval "$(/opt/homebrew/bin/brew shellenv)"
       ''}
+
     '';
   };
 }
