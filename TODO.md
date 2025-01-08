@@ -15,10 +15,7 @@ launchd/systemd
 
 https://github.com/ajeetdsouza/zoxide
 https://github.com/dandavison/delta
-fish vs zsh? https://fishshell.com
-https://www.jetbrains.com/lp/mono/
 https://github.com/burntsushi/ripgrep
-https://github.com/extrawurst/gitui
 https://git.sr.ht/~r-vdp/resilientOS/tree/master/item/modules/packages.nix
 
 ## Skhd is not working with MacOS Ventura
@@ -26,15 +23,6 @@ https://git.sr.ht/~r-vdp/resilientOS/tree/master/item/modules/packages.nix
 https://github.com/koekeishiya/skhd/issues/278
 
 ## fn keys don't work on Puffin
-
-## Yabai
-
-- force Safari to space 2
-- rename `wm.nix` to `display-manager.nix`
-- Inspiration from https://github.com/kclejeune/system
-- vscode starts in space 3
-- whatsapp and spotify starts in space 5, spotify on the right, whatsapp on the left
-- Mail/Calendar starts in screen 1/space 6 or screen 2/space 1
 
 ## Tmux colours
 
