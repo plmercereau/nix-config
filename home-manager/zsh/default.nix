@@ -9,7 +9,8 @@ with lib; let
   isDarwin = stdenv.isDarwin;
 in {
   # ? load only if the user is using zsh?
-  home.file.".zshrc".text = "";
+  home.file.".zshrc".text = ''
+  '';
   # For some reason skhd does not take /etc/skhd as the default config location anymore
   # home.file.".skhdrc" = mkIf isDarwin (mkIf (config.services.skhd.skhdConfig != "") {text = config.services.skhd.skhdConfig;});
 
@@ -34,11 +35,10 @@ in {
       hash go 2>/dev/null && export PATH=$PATH:$(go env GOPATH)/bin
       hash yarn 2>/dev/null && export PATH=$PATH:$HOME/.yarn/bin
       hash dotnet 2>/dev/null && export PATH=$PATH:$HOME/.dotnet/tools
-
       export PATH=$PATH:$HOME/.local/bin
 
       ${lib.optionalString isDarwin ''
-        hash /opt/homebrew/bin/brew 2>/dev/null && eval "$(/opt/homebrew/bin/brew shellenv)"
+        export PATH=$PATH:/opt/homebrew/bin
       ''}
     '';
   };
