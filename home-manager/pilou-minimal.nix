@@ -36,26 +36,42 @@ in {
   };
 
   home.packages = with pkgs; [
+    # asciinema # Recording + sharing terminal sessions
+    # bitwarden-cli # not working in latest nixpkgs
+    # navi # Interactive cheat sheet
     bandwhich # Bandwidth utilization monitor
     bind
+    cocogitto
+    ctop # container metrics & monitoring
+    devenv
     dogdns # better dig
     duf # better df
     fd # alternative to find
+    fdupes # Duplicate file finder
     file
     git
     glances # Resource monitor + web
     gping # interactive ping
     jq
-    killall
-    pstree # ps faux doesn't work on darwin
-    speedtest-cli # Command line speed test utility
-    tmux
-    wget
-    unzip
-    wireguard-tools
-    ncdu # disk usage
-    kubectl
     k9s # Kubernetes CLI UI
+    killall
+    kubectl
+    kubernetes-helm
+    lazydocker # Full Docker management app
+    ncdu # disk usage
+    nmap
+    pandoc # document converter e.g. markdown to pdf
+    pstree # ps faux doesn't work on darwin
+    rclone
+    speedtest-cli # Command line speed test utility
+    tcpdump
+    tldr # complement to man
+    tmux
+    unzip
+    w3m # text-based web browser
+    wget
+    wireguard-tools
+
     (writeScriptBin "kube-debug" ''
       ${kubectl}/bin/kubectl run debug --rm -i --tty --image nicolaka/netshoot
     '')
@@ -101,4 +117,15 @@ in {
       set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
     '';
   };
+
+  # * See: https://mipmip.github.io/home-manager-option-search/?query=programs.gh
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "ssh";
+      prompt = "enabled";
+    };
+  };
+
+  programs.yazi.enable = true; # CLI file browser
 }
