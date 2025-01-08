@@ -33,6 +33,9 @@ in {
     kdesc = "kubectl describe";
     kdel = "kubectl delete pod";
     krestart = "kubectl rollout restart deployment";
+
+    # TODO only on darwin
+    config-reload = "darwin-rebuild --flake ~config switch";
   };
 
   home.packages = with pkgs; [

@@ -48,7 +48,7 @@ in {
       # Following line should allow us to avoid a logout/login cycle
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
       killall Dock
-      osascript -e 'display notification "Nix settings applied"'
+      # osascript -e 'display notification "Nix settings applied"'
     '';
 
     services.nix-daemon.enable = true; # Make sure the nix daemon always runs

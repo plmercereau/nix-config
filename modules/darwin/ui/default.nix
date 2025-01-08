@@ -6,15 +6,12 @@
 }:
 with lib; let
   enableWindowManager = config.custom.windowManager.enable;
-  yabai-extra = import ./yabai-extra {inherit pkgs lib;};
 in {
   options.custom.windowManager = {
     enable = mkEnableOption "the window manager";
   };
 
   config = mkIf enableWindowManager {
-    environment.systemPackages = [yabai-extra];
-
     # Show spaces in the menu bar
     homebrew.casks = ["spaceman"];
 
@@ -114,9 +111,22 @@ in {
     services.skhd = {
       enable = true;
       skhdConfig = ''
-        fn - r: pkill yabai && \
+        fn - r: rm /tmp/yabai* && pkill yabai && \
           ${pkgs.skhd}/bin/skhd -r && \
           osascript -e 'display notification  "restart yabai and reload skhd"'
+
+        ### ARRANGE WINDOWS ###
+        # rotate layout clockwise
+        alt + cmd - r : yabai -m space --rotate 270
+
+        # flip along y-axis
+        alt + cmd - y : yabai -m space --mirror y-axis
+
+        # flip along x-axis
+        alt + cmd - x : yabai -m space --mirror x-axis
+
+        # maximize a window
+        alt + cmd - m : yabai -m window --toggle windowed-fullscreen
 
         ### CHANGE FOCUS ###
         # change focus between spaces
@@ -130,27 +140,6 @@ in {
         f8 : yabai -m space --focus 8
         f9 : yabai -m space --focus 9
 
-        f11: ${yabai-extra}/bin/yabai-extra focus-external 1
-        f12: ${yabai-extra}/bin/yabai-extra focus-external 2
-
-        ### ARRANGE WINDOWS ###
-        # rotate layout clockwise
-        alt + cmd - r : yabai -m space --rotate 270
-
-        # flip along y-axis
-        alt + cmd - y : yabai -m space --mirror y-axis
-
-        # flip along x-axis
-        alt + cmd - x : yabai -m space --mirror x-axis
-
-        # toggle window float
-        alt + cmd - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
-        # maximize a window
-        alt + cmd - m : yabai -m window --toggle zoom-fullscreen
-
-        # balance out tree of windows (resize to occupy same area)
-        alt + cmd - e : yabai -m space --balance
-
         # move window to space #
         cmd - f1 : yabai -m window --space 1;
         cmd - f2 : yabai -m window --space 2;
@@ -162,10 +151,6 @@ in {
         cmd - f8 : yabai -m window --space 8;
         cmd - f8 : yabai -m window --space 9;
 
-        # move window to display left and right
-        cmd - f11 : ${yabai-extra}/bin/yabai-extra move-window-external 1
-        cmd - f12 : ${yabai-extra}/bin/yabai-extra move-window-external 2
-
         # move window to space and follow focus
         alt + cmd - f1 : yabai -m window --space 1; yabai -m space --focus 1
         alt + cmd - f2 : yabai -m window --space 2; yabai -m space --focus 2
@@ -176,10 +161,6 @@ in {
         alt + cmd - f7 : yabai -m window --space 7; yabai -m space --focus 7
         alt + cmd - f8 : yabai -m window --space 8; yabai -m space --focus 8
         alt + cmd - f9 : yabai -m window --space 9; yabai -m space --focus 9
-
-        # move window to display left and right and follow focus
-        alt + cmd - f11 : ${yabai-extra}/bin/yabai-extra move-window-external 1;${yabai-extra}/bin/yabai-extra focus-external 1
-        alt + cmd - f12 : ${yabai-extra}/bin/yabai-extra move-window-external 2;${yabai-extra}/bin/yabai-extra focus-external 2
       '';
     };
   };

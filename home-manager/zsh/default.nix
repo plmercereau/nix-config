@@ -28,12 +28,18 @@ in {
       }
     ];
     initExtra = let
-      zshrc = builtins.readFile ./zshrc;
       p10k = builtins.readFile ./p10k.zsh;
     in ''
       ${p10k}
-      ${zshrc}
-      ${lib.optionalString isDarwin "hash /opt/homebrew/bin/brew 2>/dev/null && eval \"$(/opt/homebrew/bin/brew shellenv)\""}
+      hash go 2>/dev/null && export PATH=$PATH:$(go env GOPATH)/bin
+      hash yarn 2>/dev/null && export PATH=$PATH:$HOME/.yarn/bin
+      hash dotnet 2>/dev/null && export PATH=$PATH:$HOME/.dotnet/tools
+
+      export PATH=$PATH:$HOME/.local/bin
+
+      ${lib.optionalString isDarwin ''
+        hash /opt/homebrew/bin/brew 2>/dev/null && eval "$(/opt/homebrew/bin/brew shellenv)"
+      ''}
     '';
   };
 }
