@@ -110,10 +110,15 @@ in {
     # * skhd no longer in path: fyi https://github.com/NixOS/nixpkgs/issues/246740
     services.skhd = {
       enable = true;
-      skhdConfig = ''
-        fn - r: rm /tmp/yabai* && pkill yabai && \
-          ${pkgs.skhd}/bin/skhd -r && \
+      skhdConfig = let
+        reloadConfig = pkgs.writeShellScript "reloadConfig" ''
+          rm /tmp/yabai*
+          pkill yabai
+          ${pkgs.skhd}/bin/skhd -r
           osascript -e 'display notification  "restart yabai and reload skhd"'
+        '';
+      in ''
+        fn - r: ${reloadConfig}
 
         ### ARRANGE WINDOWS ###
         # rotate layout clockwise
