@@ -50,7 +50,7 @@ in {
       config = let
         padding = 0;
       in {
-        layout = "bsp";
+        layout = "float";
         focus_follows_mouse = "autofocus";
         mouse_follows_focus = "off";
         mouse_modifier = "fn";
@@ -66,23 +66,39 @@ in {
         window_gap = 3;
       };
       # TODO remap playpause, next, previous on f7-f9: https://github.com/yorhodes/dotfiles/commit/ce74bccb45590c91435cdc321d5860e0222806e5
-      # TODO create a 7th space when using only one display, and move this space to the second display when plugged.
-      # When unplugged, move back windows to the 7th space.
-      # Something like this: yabai -m signal --add event=display_removed action="yabai xxx" $YABAI_DISPLAY_ID
-      extraConfig = ''
+
+      # The first window of the "$1" program will be put full-screen and moved to the workspace $2
+      extraConfig = let
+        moveToSpace = pkgs.writeShellScript "moveToSpace" ''
+          export INFO="$(yabai -m query --windows --window ''$YABAI_WINDOW_ID)"
+          export APP=$(${pkgs.jq}/bin/jq -rn --argjson info "$INFO" '$info.app')
+          if test $APP == "''${1}"; then
+            export APP_NAME=''${1}
+            export NB_WINDOWS=$(yabai -m query --windows | ${pkgs.jq}/bin/jq --arg app_name "$APP_NAME" '[.[] | select(.app == $app_name)] | length')
+            if test $NB_WINDOWS == "1"; then
+              yabai -m window ''$YABAI_WINDOW_ID --toggle native-fullscreen
+              sleep 0.5
+              export INFO="$(yabai -m query --windows --window ''$YABAI_WINDOW_ID)"
+              export FULLSCREEN_SPACE=$(${pkgs.jq}/bin/jq -rn --argjson info "$INFO" '$info.space')
+              yabai -m space $FULLSCREEN_SPACE --move ''${2}
+              # FORMER_SPACE=$((DESTINATION + 1))
+              # FORMER_SPACE_FULLSCREEN=$(yabai -m query --spaces --space $FORMER_SPACE | ${pkgs.jq}/bin/jq '."is-native-fullscreen"')
+              # if test $FORMER_SPACE_FULLSCREEN != "true"; then
+              #   DESTINATION=$2
+              #   yabai -m space $((DESTINATION + 1)) --move 5
+              # fi
+            fi
+          fi
+        '';
+      in ''
         # Reload sa when the dock restarts
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-        # yabai -m config focus_follows_mouse autoraise
-        # yabai -m signal --add event=display_removed action="${yabai-extra}/bin/yabai-extra pull"
-        # yabai -m signal --add event=display_added action="${yabai-extra}/bin/yabai-extra push"
 
-        # * Make the child Teams window (when unfocusing the main window) float
-        #yabai -m rule --add label="teams" title="[.]* \| Microsoft Teams" manage="off"
-        yabai -m rule --add label="teams" app="Microsoft Teams" manage="off"
-        # TODO better Zoom regex
-        yabai -m rule --add label="zoom" app="Zoom" manage="off"
-        # avoid hiding excel column filter popups. See: https://github.com/koekeishiya/yabai/issues/1156
-        #yabai -m rule --add label="excel" app="Microsoft Excel" layer=below
+        # TODO Applications could push others to the wrong space!
+        yabai -m signal --add event=window_created action="${moveToSpace} ChatGPT 1"
+        yabai -m signal --add event=window_created action="${moveToSpace} Safari 3"
+        yabai -m signal --add event=window_created action="${moveToSpace} Ghostty 4"
+
         osascript -e 'display notification  "Yabai configuration loaded"'
       '';
     };
@@ -115,12 +131,6 @@ in {
         f11: ${yabai-extra}/bin/yabai-extra focus-external 1
         f12: ${yabai-extra}/bin/yabai-extra focus-external 2
 
-        # change window focus within space
-        alt + cmd - j : yabai -m window --focus south
-        alt + cmd - k : yabai -m window --focus north
-        alt + cmd - h : yabai -m window --focus west
-        alt + cmd - l : yabai -m window --focus east
-
         ### ARRANGE WINDOWS ###
         # rotate layout clockwise
         alt + cmd - r : yabai -m space --rotate 270
@@ -138,23 +148,6 @@ in {
 
         # balance out tree of windows (resize to occupy same area)
         alt + cmd - e : yabai -m space --balance
-
-        # swap windows
-        ctrl + cmd - j : yabai -m window --swap south
-        ctrl + cmd - k : yabai -m window --swap north
-        ctrl + cmd - h : yabai -m window --swap west
-        ctrl + cmd - l : yabai -m window --swap east
-
-        # move window and split
-        ctrl + alt - j : yabai -m window --warp south
-        ctrl + alt - k : yabai -m window --warp north
-        ctrl + alt - h : yabai -m window --warp west
-        ctrl + alt - l : yabai -m window --warp east
-
-
-        # move window to prev and next space
-        alt + cmd - p : yabai -m window --space prev;
-        alt + cmd - n : yabai -m window --space next;
 
         # move window to space #
         cmd - f1 : yabai -m window --space 1;

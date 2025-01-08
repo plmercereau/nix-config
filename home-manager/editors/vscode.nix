@@ -191,7 +191,7 @@ in {
       };
     keybindings = [
       {
-        key = "cmd+j";
+        key = "cmd+alt+j";
         command = "workbench.action.terminal.toggleTerminal";
         when = "terminal.active";
       }
