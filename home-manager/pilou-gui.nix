@@ -8,7 +8,7 @@
 in {
   imports = [
     ./pilou.nix
-    ./alacritty.nix
+    # ./alacritty.nix
     ./editors/vscode.nix
   ];
 

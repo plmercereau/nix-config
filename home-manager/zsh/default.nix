@@ -27,14 +27,6 @@ in {
         file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       }
     ];
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "colored-man-pages" # * Man pages in color. See: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colored-man-pages
-        # "git" # * Git aliases & functions. See: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-        # "globalias" # * Expands all glob expressions, subcommands and aliases. See: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/globalias
-      ];
-    };
     initExtra = let
       zshrc = builtins.readFile ./zshrc;
       p10k = builtins.readFile ./p10k.zsh;

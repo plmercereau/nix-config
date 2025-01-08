@@ -16,7 +16,7 @@
     fdupes # Duplicate file finder
     lazydocker # Full Docker management app
     nmap
-    nnn # file browser
+    yazi # nnn # file browser
     rclone
     tldr # complement to man
     w3m # text-based web browser

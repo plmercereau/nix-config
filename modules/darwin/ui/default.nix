@@ -70,23 +70,25 @@ in {
       # The first window of the "$1" program will be put full-screen and moved to the workspace $2
       extraConfig = let
         moveToSpace = pkgs.writeShellScript "moveToSpace" ''
-          export INFO="$(yabai -m query --windows --window ''$YABAI_WINDOW_ID)"
-          export APP=$(${pkgs.jq}/bin/jq -rn --argjson info "$INFO" '$info.app')
+          INFO="$(yabai -m query --windows --window ''$YABAI_WINDOW_ID)"
+          APP=$(${pkgs.jq}/bin/jq -rn --argjson info "$INFO" '$info.app')
           if test $APP == "''${1}"; then
-            export APP_NAME=''${1}
-            export NB_WINDOWS=$(yabai -m query --windows | ${pkgs.jq}/bin/jq --arg app_name "$APP_NAME" '[.[] | select(.app == $app_name)] | length')
-            if test $NB_WINDOWS == "1"; then
-              yabai -m window ''$YABAI_WINDOW_ID --toggle native-fullscreen
-              sleep 0.5
-              export INFO="$(yabai -m query --windows --window ''$YABAI_WINDOW_ID)"
-              export FULLSCREEN_SPACE=$(${pkgs.jq}/bin/jq -rn --argjson info "$INFO" '$info.space')
-              yabai -m space $FULLSCREEN_SPACE --move ''${2}
-              # FORMER_SPACE=$((DESTINATION + 1))
-              # FORMER_SPACE_FULLSCREEN=$(yabai -m query --spaces --space $FORMER_SPACE | ${pkgs.jq}/bin/jq '."is-native-fullscreen"')
-              # if test $FORMER_SPACE_FULLSCREEN != "true"; then
-              #   DESTINATION=$2
-              #   yabai -m space $((DESTINATION + 1)) --move 5
-              # fi
+            IS_FULLCREEN=$(${pkgs.jq}/bin/jq -rn --argjson info "$INFO" '$info."is-native-fullscreen"')
+            if test $IS_FULLCREEN != "true"; then
+              NB_WINDOWS=$(yabai -m query --windows | ${pkgs.jq}/bin/jq --arg app_name "''${1}" '[.[] | select(.app == $app_name)] | length')
+              if test $NB_WINDOWS == "1" && test $IS_FULLCREEN != "true"; then
+                yabai -m window ''$YABAI_WINDOW_ID --toggle native-fullscreen
+                  sleep 0.5
+                  INFO="$(yabai -m query --windows --window ''$YABAI_WINDOW_ID)"
+                  FULLSCREEN_SPACE=$(${pkgs.jq}/bin/jq -rn --argjson info "$INFO" '$info.space')
+                  yabai -m space $FULLSCREEN_SPACE --move ''${2}
+                  # FORMER_SPACE=$((DESTINATION + 1))
+                  # FORMER_SPACE_FULLSCREEN=$(yabai -m query --spaces --space $FORMER_SPACE | ${pkgs.jq}/bin/jq '."is-native-fullscreen"')
+                  # if test $FORMER_SPACE_FULLSCREEN != "true"; then
+                  #   DESTINATION=$2
+                  #   yabai -m space $((DESTINATION + 1)) --move 5
+                  # fi
+              fi
             fi
           fi
         '';

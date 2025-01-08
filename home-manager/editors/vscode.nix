@@ -128,8 +128,10 @@ in {
         "extensions.ignoreRecommendations" = true;
         "git.confirmSync" = false;
         "python.formatting.provider" = "black";
-        "terminal.external.linuxExec" = "alacritty";
-        "terminal.external.osxExec" = "Alacritty.app";
+        # "terminal.external.linuxExec" = "alacritty";
+        # "terminal.external.osxExec" = "Alacritty.app";
+        "terminal.external.linuxExec" = "ghostty";
+        "terminal.external.osxExec" = "Ghostty.app";
         "terminal.integrated.fontFamily" = "MesloLGS NF";
         "update.mode" = "none";
         "window.zoomLevel" = 1.2;
