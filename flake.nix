@@ -19,7 +19,7 @@
       home-manager.follows = "home-manager";
     };
 
-    nicos.url = "github:plmercereau/nicos?ref=tailscale"; # TODO temporary
+    nicos.url = "github:plmercereau/nicos";
     nicos.inputs = {
       nixpkgs.follows = "nixpkgs";
       home-manager.follows = "home-manager";

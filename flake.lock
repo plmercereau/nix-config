@@ -252,16 +252,15 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1736280651,
-        "narHash": "sha256-fL0khHZ/MwxxYeva9vXFVUWjmu+DfOtbPDaYe5vPZGI=",
+        "lastModified": 1736347089,
+        "narHash": "sha256-yjXnj+SEArTM2+wwwUs2dU5/pXZZh/A50rxxlu+VQQw=",
         "owner": "plmercereau",
         "repo": "nicos",
-        "rev": "dcd8379e874b5b7013a066e813c04d4bb427bd38",
+        "rev": "1bc54bb6396662ac7a1b0bb713073b0eedc2d027",
         "type": "github"
       },
       "original": {
         "owner": "plmercereau",
-        "ref": "tailscale",
         "repo": "nicos",
         "type": "github"
       }
