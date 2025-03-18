@@ -21,7 +21,7 @@ in {
       zoom-us
       # dbeaver-bin # TODO not supported on darwin (anymore)
       qbittorrent
-      # plantuml
+      plantuml
     ]
     ++ lib.optionals isLinux [
       google-chrome
@@ -34,9 +34,6 @@ in {
       # Bluesquare tools
       slack
       # _1password-gui # TODO broken
-    ]
-    ++ [
-      superTuxKart
     ];
 
   # Works both with Gnome and MacOS

@@ -33,7 +33,7 @@
     #   celestia # Real-time 3D simulation of space -> GTK, not nice
     #   frozen-bubble # complicated to make it work - and needs internet...
     superTux
-    superTuxKart
+    # superTuxKart
     hedgewars
     # freeciv # ? too early?
     lutris # game manager
