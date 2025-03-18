@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  nixosConfigurations,
   ...
 }: {
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -28,7 +27,7 @@
   custom = {
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
-    # linux-builder.enable = true;
+    linux-builder.enable = true;
     # linux-builder.initialBuild = true;
   };
 
@@ -41,11 +40,12 @@
   homebrew.casks = [
     "spaceman" # Show spaces in the menu bar
     "balenaetcher"
-    "protonvpn"
+    # "protonvpn"
+    "adguard-vpn"
     # "rancher"
     "docker" # Either use docker or rancher, but not both
     # "goldencheetah"
-    "ghostty" # TODO 1.0.1 nix package is broken
+    "ghostty" # TODO 1.1.0 nix package is broken
     "google-chrome" # nix package only for linux
     "google-drive" # no nix package
     "grammarly-desktop"

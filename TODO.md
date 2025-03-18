@@ -2,6 +2,15 @@
 
 Now supposed to work with sudo. Adapt accordingly
 
+## save macos shortcuts:
+
+- F1-2-3 as function keys
+- F1 -> workspace 1, etc
+
+## auto-hover mouse: not native
+
+https://github.com/Hammerspoon/hammerspoon
+
 ## On Darwin, set /etc/hosts
 
 ## rsync -> rclone script and cron for ~dev
@@ -18,9 +27,7 @@ https://github.com/dandavison/delta
 https://github.com/burntsushi/ripgrep
 https://git.sr.ht/~r-vdp/resilientOS/tree/master/item/modules/packages.nix
 
-## Skhd is not working with MacOS Ventura
-
-https://github.com/koekeishiya/skhd/issues/278
+## Find an alternative to yabai/skhd
 
 ## fn keys don't work on Puffin
 

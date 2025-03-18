@@ -16,11 +16,12 @@ in {
 
   home.packages = with pkgs;
     [
-      # ghostty # TODO 1.0.1 is broken
+      # ghostty # TODO 1.1.0 is broken
       spotify
       zoom-us
       # dbeaver-bin # TODO not supported on darwin (anymore)
       qbittorrent
+      # plantuml
     ]
     ++ lib.optionals isLinux [
       google-chrome
@@ -33,9 +34,6 @@ in {
       # Bluesquare tools
       slack
       # _1password-gui # TODO broken
-    ]
-    ++ [
-      skhd # TODO only if darwin and window manager option is enabled
     ]
     ++ [
       superTuxKart

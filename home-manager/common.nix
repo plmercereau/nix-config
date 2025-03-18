@@ -49,8 +49,7 @@
     # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
 
     enable = true;
-    # Zsh integration is manually enabled in zshrc in order to mute some of direnv's output
-    enableZshIntegration = false;
+
     nix-direnv.enable = true;
 
     config.global = {

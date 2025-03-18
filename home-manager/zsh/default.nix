@@ -11,8 +11,6 @@ in {
   # ? load only if the user is using zsh?
   home.file.".zshrc".text = ''
   '';
-  # For some reason skhd does not take /etc/skhd as the default config location anymore
-  # home.file.".skhdrc" = mkIf isDarwin (mkIf (config.services.skhd.skhdConfig != "") {text = config.services.skhd.skhdConfig;});
 
   programs.zsh = {
     enable = true;
@@ -35,14 +33,14 @@ in {
 
       hash go 2>/dev/null && export PATH=$PATH:$(go env GOPATH)/bin
       hash yarn 2>/dev/null && export PATH=$PATH:$HOME/.yarn/bin
-      hash dotnet 2>/dev/null && export PATH=$PATH:$HOME/.dotnet/tools
+
+      # hash direnv 2>/dev/null && eval "$(direnv hook zsh)"
       export PATH=$PATH:$HOME/.local/bin
 
       # TODO get rid of this as soon as the ghostty nix package works
       ${lib.optionalString isDarwin ''
         eval "$(/opt/homebrew/bin/brew shellenv)"
       ''}
-
     '';
   };
 }

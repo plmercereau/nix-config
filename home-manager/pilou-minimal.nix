@@ -47,6 +47,7 @@ in {
     cocogitto
     ctop # container metrics & monitoring
     devenv
+    devbox # another devenv equivalent
     dogdns # better dig
     duf # better df
     fd # alternative to find
@@ -131,7 +132,7 @@ in {
   };
 
   programs.yazi = {
-    enable = true; # CLI file browser
+    enable = true; # CLI file browser, equivalent to nnn
     enableZshIntegration = true;
   };
 }

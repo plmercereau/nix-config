@@ -40,12 +40,22 @@ in {
     # * nix-darwin option: https://github.com/LnL7/nix-darwin/blob/master/modules/nix/linux-builder.nix
     # * darwin-builder: https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/profiles/macos-builder.nix
     enable = true;
+    ephemeral = true;
     maxJobs = 4;
-    config = mkIf (!cfg.initialBuild) ({pkgs, ...}: {
-      virtualisation.diskSize = lib.mkForce (1024 * 40); # 40GB, defaults seems to be 20GB
-      # * the builder user needs to be in the wheel group to be able to mount iso images
-      users.users.builder.extraGroups = ["wheel"];
-      security.sudo.wheelNeedsPassword = false;
-    });
+    config = {
+      virtualisation = {
+        darwin-builder = {
+          diskSize = 40 * 1024;
+          memorySize = 8 * 1024;
+        };
+        cores = 6;
+      };
+    };
+    # config = mkIf (!cfg.initialBuild) ({pkgs, ...}: {
+    #   virtualisation.diskSize = lib.mkForce (1024 * 40); # 40GB, defaults seems to be 20GB
+    #   # * the builder user needs to be in the wheel group to be able to mount iso images
+    #   users.users.builder.extraGroups = ["wheel"];
+    #   security.sudo.wheelNeedsPassword = false;
+    # });
   };
 }

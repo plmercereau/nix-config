@@ -3,16 +3,10 @@
   pkgs,
   config,
   options,
-  nixosConfigurations,
   ...
 }:
 with lib; let
   inherit (config.networking) hostName;
-  builders =
-    filterAttrs
-    (_: machine: machine.config.settings.services.nix-builder.enable && machine.config.networking.hostName != hostName)
-    nixosConfigurations;
-  nbBuilers = builtins.length (builtins.attrNames builders);
 in {
   imports = [
     ./keyboard.nix
@@ -37,8 +31,7 @@ in {
     environment.pathsToLink = ["/share/zsh"];
 
     # Enable sudo authentication with Touch ID
-    # See: https://daiderd.com/nix-darwin/manual/index.html#opt-security.pam.enableSudoTouchIdAuth
-    security.pam.enableSudoTouchIdAuth = true;
+    security.pam.services.sudo_local.touchIdAuth = true;
 
     # * See: https://github.com/LnL7/nix-darwin/blob/master/tests/system-defaults-write.nix
     system.defaults.loginwindow.GuestEnabled = false;
@@ -51,10 +44,9 @@ in {
       # osascript -e 'display notification "Nix settings applied"'
     '';
 
-    services.nix-daemon.enable = true; # Make sure the nix daemon always runs
     nix = {
+      enable = true;
       package = pkgs.nixVersions.stable;
-      configureBuildUsers = true; # Creates "build users"
       settings = {
         max-jobs = lib.mkDefault config.nix.settings.cores; # use all cores
         # TODO not ideal difference bw admin and wheel. And also, not ideal to reuse as nix trusted users. Create a separate group?
