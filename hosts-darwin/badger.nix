@@ -45,7 +45,7 @@
     # "rancher"
     "docker" # Either use docker or rancher, but not both
     # "goldencheetah"
-    "ghostty" # TODO 1.1.0 nix package is broken
+    "ghostty" # TODO 1.1.3 nix package is broken
     "google-chrome" # nix package only for linux
     "google-drive" # no nix package
     "grammarly-desktop"
@@ -60,10 +60,12 @@
     # "supertuxkart"
     "zwift"
     "microsoft-teams" # the "teams" nix package is not new enough
+    "obsidian"
   ];
 
   homebrew.masApps = {
     # "HP Smart for Desktop" = 1474276998;
+    # https://apps.apple.com/be/app/obsidian-web-clipper/id6720708363
   };
 
   users.users.pilou.home = "/Users/pilou";
@@ -82,6 +84,8 @@
       config = "$HOME/dev/plmercereau/nix-config";
       dev = "$HOME/dev";
       gh = "$HOME/dev/plmercereau";
+      blsq = "$HOME/dev/blsq";
+      obs = "$HOME/dev/obsidian";
     };
   };
 }

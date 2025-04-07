@@ -16,12 +16,11 @@ in {
 
   home.packages = with pkgs;
     [
-      # ghostty # TODO 1.1.0 is broken
+      # ghostty # TODO still broken (1.1.3)
       spotify
       zoom-us
       # dbeaver-bin # TODO not supported on darwin (anymore)
       qbittorrent
-      plantuml
     ]
     ++ lib.optionals isLinux [
       google-chrome

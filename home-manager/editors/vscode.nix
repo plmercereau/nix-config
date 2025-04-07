@@ -51,31 +51,16 @@ in {
           ms-kubernetes-tools.vscode-kubernetes-tools
           hashicorp.terraform
           golang.go
+          aaron-bond.better-comments
+          platformio.platformio-vscode-ide
+          thenuprojectcontributors.vscode-nushell-lang
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-          {
-            name = "platformio-ide";
-            publisher = "platformio";
-            version = "3.3.3";
-            sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
-          }
-          {
-            name = "better-comments";
-            publisher = "aaron-bond";
-            version = "3.0.2";
-            sha256 = "sha256-hQmA8PWjf2Nd60v5EAuqqD8LIEu7slrNs8luc3ePgZc=";
-          }
           {
             name = "grammarly";
             publisher = "znck";
             version = "0.23.15";
             sha256 = "sha256-/LjLL8IQwQ0ghh5YoDWQxcPM33FCjPeg3cFb1Qa/cb0=";
-          }
-          {
-            name = "vscode-nushell-lang";
-            publisher = "TheNuProjectContributors";
-            version = "1.9.0";
-            sha256 = "sha256-E9CK/GChd/yZT+P3ttROjL2jHtKPJ0KZzc32/nbuE4w=";
           }
           {
             name = "toit";
@@ -129,8 +114,6 @@ in {
         "git.confirmSync" = false;
         "git.replaceTagsWhenPull" = true;
         "python.formatting.provider" = "black";
-        # "terminal.external.linuxExec" = "alacritty";
-        # "terminal.external.osxExec" = "Alacritty.app";
         "terminal.external.linuxExec" = "ghostty";
         "terminal.external.osxExec" = "Ghostty.app";
         "terminal.integrated.fontFamily" = "MesloLGS NF";
@@ -163,6 +146,10 @@ in {
         "[typescript]" = {
           "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
         };
+        # "[typescriptreact]" = {
+        #   "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        # };
+
         "editor.codeActionsOnSave" = {
           "source.organizeImports" = "always";
           "source.fixAll" = "always";
@@ -190,6 +177,33 @@ in {
         "[markdown]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
+        "better-comments.tags" = [
+          {
+            "tag" = "!";
+            "color" = "#FF2D00";
+          }
+          {
+            "tag" = "?";
+            "color" = "#3498DB";
+          }
+          {
+            "tag" = "//";
+            "color" = "#474747";
+            "strikethrough" = true;
+          }
+          {
+            "tag" = "todo";
+            "color" = "#FF8C00";
+          }
+          {
+            "tag" = "*";
+            "color" = "#98C379";
+          }
+          {
+            "tag" = "fixme";
+            "color" = "#FF2D00";
+          }
+        ];
       };
       keybindings = [
         {

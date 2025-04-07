@@ -74,7 +74,7 @@ in {
     unzip
     w3m # text-based web browser
     wget
-    wireguard-tools
+    # wireguard-tools
 
     (writeScriptBin "kube-debug" ''
       ${kubectl}/bin/kubectl run debug --rm -i --tty --image nicolaka/netshoot
