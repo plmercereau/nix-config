@@ -48,6 +48,7 @@ in {
     ctop # container metrics & monitoring
     devenv
     devbox # another devenv equivalent
+    duckdb
     dogdns # better dig
     duf # better df
     fd # alternative to find

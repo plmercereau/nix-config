@@ -35,6 +35,12 @@ in {
       # _1password-gui # TODO broken
     ];
 
+  home.sessionVariables = {
+    # Needed for Ghostty to work when using ssh
+    # * See: https://github.com/ghostty-org/ghostty/issues/3335
+    TERM = "xterm-256color";
+  };
+
   # Works both with Gnome and MacOS
   programs.zsh.dirHashes = {
     desk = "$HOME/Desktop";
