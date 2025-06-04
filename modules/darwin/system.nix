@@ -5,6 +5,9 @@
   ...
 }:
 with lib; {
+  # Will be eventuall removed ?
+  # * See: https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
+  system.primaryUser = "pilou";
   system.stateVersion = 4;
   system.defaults.CustomUserPreferences = {
     # * See https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236

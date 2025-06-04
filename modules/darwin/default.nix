@@ -37,12 +37,13 @@ in {
     system.defaults.loginwindow.GuestEnabled = false;
     # Apply settings on activation.
     # * See https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
-    system.activationScripts.postUserActivation.text = ''
-      # Following line should allow us to avoid a logout/login cycle
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-      killall Dock
-      # osascript -e 'display notification "Nix settings applied"'
-    '';
+    # TODO system.activationScripts.postUserActivation has been removed!
+    # system.activationScripts.postUserActivation.text = ''
+    #   # Following line should allow us to avoid a logout/login cycle
+    #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    #   killall Dock
+    #   # osascript -e 'display notification "Nix settings applied"'
+    # '';
 
     nix = {
       enable = true;

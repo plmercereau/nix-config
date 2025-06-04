@@ -54,6 +54,8 @@ in {
           aaron-bond.better-comments
           platformio.platformio-vscode-ide
           thenuprojectcontributors.vscode-nushell-lang
+          eamodio.gitlens
+          signageos.signageos-vscode-sops
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
@@ -204,6 +206,42 @@ in {
             "color" = "#FF2D00";
           }
         ];
+        "chat.mcp.enabled" = true;
+        mcp = {
+          inputs = [
+            {
+              type = "promptString";
+              id = "github_token";
+              description = "GitHub Personal Access Token";
+              password = true;
+            }
+          ];
+
+          servers = {
+            github = {
+              command = "docker";
+              args = [
+                "run"
+                "-i"
+                "--rm"
+                "-e"
+                "GITHUB_PERSONAL_ACCESS_TOKEN"
+                "ghcr.io/github/github-mcp-server"
+              ];
+              env = {
+                GITHUB_PERSONAL_ACCESS_TOKEN = "\${input:github_token}";
+              };
+            };
+            # filesystem = {
+            #   command = "npx";
+            #   args = [
+            #     "-y"
+            #     "@modelcontextprotocol/server-filesystem"
+            #     "\${workspaceFolder}"
+            #   ];
+            # };
+          };
+        };
       };
       keybindings = [
         {

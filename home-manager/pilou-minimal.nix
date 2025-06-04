@@ -75,6 +75,8 @@ in {
     unzip
     w3m # text-based web browser
     wget
+    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+
     # wireguard-tools
 
     (writeScriptBin "kube-debug" ''

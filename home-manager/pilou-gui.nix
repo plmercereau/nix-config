@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }: let
   isLinux = pkgs.hostPlatform.isLinux;
@@ -33,6 +34,13 @@ in {
       # Bluesquare tools
       slack
       # _1password-gui # TODO broken
+      (pkgs.rstudioWrapper.override {
+        packages = with pkgs.rPackages; [
+          ggplot2
+          dplyr
+          xts
+        ];
+      })
     ];
 
   home.sessionVariables = {

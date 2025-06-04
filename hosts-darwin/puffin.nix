@@ -13,7 +13,8 @@
 
   homebrew.casks = [
     "balenaetcher"
-    "docker"
+    # "docker"
+    "orbstack"
     "google-chrome" # nix package only for linux
     "grammarly-desktop"
     "grammarly"
