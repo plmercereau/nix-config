@@ -38,6 +38,7 @@
   # };
 
   homebrew.casks = [
+    "altair-graphql-client"
     "figma"
     "cursor"
     "claude"
@@ -61,7 +62,7 @@
     # "steam" # not available on nixpkgs
     "virtualbox"
     "webex"
-    # "supertuxkart"
+    "supertuxkart"
     "zwift"
     "microsoft-teams" # the "teams" nix package is not new enough
     "obsidian"
