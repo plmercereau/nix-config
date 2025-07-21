@@ -22,6 +22,8 @@ in {
       zoom-us
       # dbeaver-bin # TODO not supported on darwin (anymore)
       qbittorrent
+      # Zed editor
+      # zed-editor # TODO deactivated and using brew instead: this package needs full compilation
     ]
     ++ lib.optionals isLinux [
       google-chrome

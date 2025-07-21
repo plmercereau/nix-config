@@ -65,12 +65,12 @@
 
     lfs.enable = true;
     extraConfig = {
+      core.pager = ""; # do not use pager so git diff exits without a need to press "q
       # user.signingKey = "DA5D9235BD5BD4BD6F4C2EA868066BFF4EA525F1";
       # commit.gpgSign = true;
       init.defaultBranch = "main";
       alias.root = "rev-parse --show-toplevel";
     };
-    diff-so-fancy.enable = true;
 
     ignores = [
       "*~"

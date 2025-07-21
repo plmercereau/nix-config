@@ -1,0 +1,28 @@
+---
+description: "Rules for NixOS and nix-darwin configuration."
+globs: "**/*.nix"
+alwaysApply: false
+---
+
+# NixOS and nix-darwin Configuration
+
+This is a NixOS and Nix-darwin configuration project.
+When providing assistance, please follow these guidelines:
+
+- Use `nix-darwin` for macOS-specific configurations.
+- Use `home-manager` for user-specific configurations.
+- Use `agenix` for secrets management.
+
+## Dont's
+
+- Suggest using `nix-env` to install packages.
+- Suggest using `nix-channel` to manage channels.
+- Suggest packages that are not available in the configured nixpkgs version.
+- Forget to use `lib.mkForce` when overriding existing configurations.
+
+## Hints
+
+- The project uses `agenix` for secrets, so don't suggest storing secrets in the Nix store.
+- The project uses `flake-utils` to manage systems.
+- When adding new packages, consider whether they should be in `home.packages` or `environment.systemPackages`.
+- When making changes, always check if they affect both NixOS and Nix-darwin configurations.

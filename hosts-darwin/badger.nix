@@ -67,6 +67,7 @@
     "microsoft-teams" # the "teams" nix package is not new enough
     "obsidian"
     "orbstack"
+    "zed"
   ];
 
   homebrew.masApps = {
