@@ -47,6 +47,5 @@
     gpaste # clipboard manager
     simple-scan # scanner
     gnome-chess
-    spotify
   ];
 }

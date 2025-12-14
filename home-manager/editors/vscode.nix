@@ -11,7 +11,7 @@ in {
     ++ (lib.optional (builtins.elem vscode-extensions.ms-python.python extensions) black)
   );
 
-  programs.git.extraConfig = {
+  programs.git.settings = {
     core.editor = "code --wait";
     diff.tool = "vscode";
     difftool.vscode.cmd = "code --wait --diff $LOCAL $REMOTE";

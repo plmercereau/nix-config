@@ -11,6 +11,7 @@
 in {
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedUDPPorts = [53];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [adguardPort];
     services.adguardhome = {
       settings = {
         bind_port = adguardPort;
@@ -24,7 +25,5 @@ in {
         proxyPass = "http://127.0.0.1:${toString adguardPort}/";
       };
     };
-
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [adguardPort];
   };
 }

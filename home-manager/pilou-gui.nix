@@ -10,20 +10,21 @@ in {
   imports = [
     ./pilou.nix
     # ./alacritty.nix
-    ./editors/vscode.nix
+    # ./editors/vscode.nix
+    ./editors/zed.nix
   ];
 
   programs.helix.defaultEditor = lib.mkForce false;
 
   home.packages = with pkgs;
     [
-      # ghostty # TODO still broken (1.1.3)
-      spotify
+      nodejs
+      uv
+      ghostty-bin
       zoom-us
+      slack
       # dbeaver-bin # TODO not supported on darwin (anymore)
-      qbittorrent
-      # Zed editor
-      # zed-editor # TODO deactivated and using brew instead: this package needs full compilation
+      # qbittorrent # TODO crashes
     ]
     ++ lib.optionals isLinux [
       google-chrome
@@ -31,18 +32,6 @@ in {
     ++ lib.optionals isDarwin [
       utm
       iina
-    ]
-    ++ [
-      # Bluesquare tools
-      slack
-      # _1password-gui # TODO broken
-      (pkgs.rstudioWrapper.override {
-        packages = with pkgs.rPackages; [
-          ggplot2
-          dplyr
-          xts
-        ];
-      })
     ];
 
   home.sessionVariables = {

@@ -40,12 +40,7 @@
       }
     ))
     // {
-      darwinConfigurations = let
-        specialArgs = {
-          # inherit (conf) nixosConfigurations;
-          inherit agenix;
-        };
-      in {
+      darwinConfigurations = {
         badger = nix-darwin.lib.darwinSystem rec {
           modules = [
             ./modules/darwin
@@ -53,10 +48,31 @@
             agenix.darwinModules.default
             home-manager.darwinModules.home-manager
             {
-              home-manager.extraSpecialArgs = specialArgs;
+              home-manager.extraSpecialArgs = {
+                # TODO check in the latest home-manager version if this is still needed
+                inherit agenix;
+              };
             }
           ];
-          inherit specialArgs;
+          specialArgs = {
+            inherit agenix;
+          };
+        };
+      };
+      nixosConfigurations = {
+        fennec = nixpkgs.lib.nixosSystem rec {
+          modules = [
+            ./modules/nixos
+            ./hosts-nixos/fennec.nix
+            agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {inherit agenix;};
+            }
+          ];
+          specialArgs = {
+            inherit agenix;
+          };
         };
       };
     };

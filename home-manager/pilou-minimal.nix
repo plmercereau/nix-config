@@ -85,8 +85,10 @@ in {
   ];
 
   programs.git = {
-    userName = fullName;
-    userEmail = gitEmail;
+    settings.user = {
+      name = fullName;
+      email = gitEmail;
+    };
   };
 
   # better find # ? too heavy to put as a minimal package?

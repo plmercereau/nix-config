@@ -13,7 +13,7 @@
   jellyfin = config.services.jellyfin;
   transmission = config.services.transmission;
 
-  # TODO use symlinkJoin or something similar in addition to writeTextDir in order to attach css
+  # TODO replace with Dashy
   # See: https://github.com/NixOS/nixpkgs/blob/b856b24bfaf44dd7c101d1afbefec850e968365a/pkgs/build-support/trivial-builders.nix
   index = pkgs.writeTextDir "index.html" ''
     <html>

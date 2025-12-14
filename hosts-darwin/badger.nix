@@ -50,7 +50,6 @@
     # "rancher"
     # "docker" # Either use docker or rancher, but not both
     # "goldencheetah"
-    "ghostty" # TODO 1.1.3 nix package is broken
     "google-chrome" # nix package only for linux
     "google-drive" # no nix package
     "grammarly-desktop"
@@ -65,9 +64,10 @@
     "supertuxkart"
     "zwift"
     "microsoft-teams" # the "teams" nix package is not new enough
-    "obsidian"
+    # "obsidian" # TODO not up to date... installed manually
     "orbstack"
-    "zed"
+    "spotify"
+    "qbittorrent"
   ];
 
   homebrew.masApps = {
@@ -78,6 +78,7 @@
   homebrew.taps = ["stacklok/tap"];
   homebrew.brews = [
     "thv" # toolhive
+    "biome"
   ];
   users.users.pilou.home = "/Users/pilou";
   home-manager.users.pilou = {
@@ -88,7 +89,6 @@
 
     home.packages = with pkgs; [
       discord
-      gimp
     ];
 
     programs.zsh.dirHashes = {
