@@ -4,6 +4,49 @@
   lib,
   ...
 }: {
+  disko.devices = {
+    disk = {
+      main = {
+        device = "/dev/nvme0n1";
+        type = "disk";
+        content = {
+          type = "gpt";
+          partitions = {
+            boot = {
+              size = "1M";
+              type = "EF02"; # for grub MBR
+            };
+            ESP = {
+              size = "1G";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = ["umask=0077"];
+              };
+            };
+            root = {
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+  boot.loader.grub = {
+    # no need to set devices, disko will add all devices that have a EF02 partition to the list already
+    # devices = [ ];
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
+  services.openssh.enable = true;
+
   nixpkgs.config.allowUnfree = true;
   environment.pathsToLink = ["/share/zsh"];
   time.timeZone = "Europe/Brussels";
@@ -15,8 +58,23 @@
     };
   };
 
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyxrQiE8bx1R9SG4fuNebXP8oq1duReM7E7W2M0i0fsC3PrKwQ6c9R4qzNQLREeWwtCWV0KEl0K+iriiIPa7D5psEASJapGyi5NtqEqZbM+a8BGQNdy82zEU4xU6IA4GyjxqPb/0zRiEh//4RuePZGNItW2Gl+1ZvOA1UTsHZKpGgZxWewoGdtm6EwscTy+5A4uanFWmxtpajy5J1GVR038quQLszSsTfTRr0gA80+uQbahHlGmP9HlyXrjaeKtSz9XTT95XmC/rVJkIKBYEIEf2fyV+O3hB1cxh+fb/lHFqoIJrES1qU4TAzs58Ioj0Jd3xlPGa96VJewrNXKbFjP pilou@MBPZ35"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjOA4ZYa5EY5wDvCa1I7cEnqnxdNXsmaO0+9zP1adJVtzUO98LfWqmj+MsAGr57TAgzZkxaOWJWaN48Sv7CFzCzsSl+uSoUEwsPmQWa6qiSF/4EunN3qtMZpkT+/I3kmck093gUsw+ZUfaEEoF9m7sHYCThxIOZ4BT8vr58ekSy5qgG536SgHaXQI1yX7EWQebIWxM1wEK4UQQut7tMmGt2/XmfpKkVNK5sSadn6OyneBLoJnNwHEi0FW6+jmQnvaUY0jYtCqIsmeCfG2M5T030Tt+Go5cCk5UaeGlla7MFcT6HPL8BT3tKmf9h8oR4wZqVXbuMEmvgq2FbC0B02oX plmercereau@github.com"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGd6o/NuO04nLqahrci03Itd/1yoK76ZpzKGgpwAEctb pilou@MBP-Pilou"
+  ];
+
   # * User: pilou
-  users.users.pilou.extraGroups = ["data"];
+  users.users.pilou = {
+    isNormalUser = true;
+    extraGroups = ["wheel" "data"];
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyxrQiE8bx1R9SG4fuNebXP8oq1duReM7E7W2M0i0fsC3PrKwQ6c9R4qzNQLREeWwtCWV0KEl0K+iriiIPa7D5psEASJapGyi5NtqEqZbM+a8BGQNdy82zEU4xU6IA4GyjxqPb/0zRiEh//4RuePZGNItW2Gl+1ZvOA1UTsHZKpGgZxWewoGdtm6EwscTy+5A4uanFWmxtpajy5J1GVR038quQLszSsTfTRr0gA80+uQbahHlGmP9HlyXrjaeKtSz9XTT95XmC/rVJkIKBYEIEf2fyV+O3hB1cxh+fb/lHFqoIJrES1qU4TAzs58Ioj0Jd3xlPGa96VJewrNXKbFjP pilou@MBPZ35"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjOA4ZYa5EY5wDvCa1I7cEnqnxdNXsmaO0+9zP1adJVtzUO98LfWqmj+MsAGr57TAgzZkxaOWJWaN48Sv7CFzCzsSl+uSoUEwsPmQWa6qiSF/4EunN3qtMZpkT+/I3kmck093gUsw+ZUfaEEoF9m7sHYCThxIOZ4BT8vr58ekSy5qgG536SgHaXQI1yX7EWQebIWxM1wEK4UQQut7tMmGt2/XmfpKkVNK5sSadn6OyneBLoJnNwHEi0FW6+jmQnvaUY0jYtCqIsmeCfG2M5T030Tt+Go5cCk5UaeGlla7MFcT6HPL8BT3tKmf9h8oR4wZqVXbuMEmvgq2FbC0B02oX plmercereau@github.com"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGd6o/NuO04nLqahrci03Itd/1yoK76ZpzKGgpwAEctb pilou@MBP-Pilou"
+    ];
+  };
+
   users.users.data = {
     isSystemUser = true;
     group = "data";
@@ -27,7 +85,7 @@
     # * the following is not necessary, but can be convenient for debugging
     shell = pkgs.zsh;
     extraGroups = ["systemd-journal"];
-    openssh.authorizedKeys.keys = config.lib.ext_lib.adminKeys;
+    # openssh.authorizedKeys.keys = config.lib.ext_lib.adminKeys;
   };
   users.groups.data = {};
 
@@ -48,20 +106,14 @@
   };
 
   virtualisation.oci-containers.containers = {
-    test = {
-      image = "library/hello-world";
-      volumes = [];
-      ports = [
-        # ip:hostport:containerport
-        "127.0.0.1:8080:8080"
-      ];
-    };
-  };
-
-  # TODO use default nix options
-  settings = {
-    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIM5l9qxM+KFhsxJR1ZM0QYu/s5VHJQAARnuSDi4iIkP";
-    localIP = "10.136.1.11";
+    # test = {
+    #   image = "library/hello-world";
+    #   volumes = [];
+    #   ports = [
+    #     # ip:hostport:containerport
+    #     "127.0.0.1:8080:8080"
+    #   ];
+    # };
   };
 
   # Enable avahi mdns
@@ -72,13 +124,12 @@
 
   # conflicts on port 80 (k3s enables traefik)
   services.nginx = {
-    enable = true;
-    virtualHosts.${config.networking.hostName}.locations = {
-      "/hello" = {
-        proxyPass = "http://127.0.0.1:8080";
-        recommendedProxySettings = true;
-      };
-    };
+    # virtualHosts.${config.networking.hostName}.locations = {
+    #   "/hello" = {
+    #     proxyPass = "http://127.0.0.1:8080";
+    #     recommendedProxySettings = true;
+    #   };
+    # };
   };
 
   services.transmission = {
@@ -100,7 +151,6 @@
   };
   services.prowlarr = {
     enable = true;
-    group = "data";
   };
   services.bazarr = {
     enable = true;

@@ -16,6 +16,7 @@
     # "docker"
     "orbstack"
     "google-chrome" # nix package only for linux
+    "zed"
     "grammarly-desktop"
     "grammarly"
     "notion"

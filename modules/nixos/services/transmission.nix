@@ -18,7 +18,7 @@ in {
         # rpc-whitelist = "127.0.0.1,10.136.1.*"; #Whitelist your remote machine (10.0.0.1 in this example)
         rpc-whitelist = "*";
         rpc-host-whitelist-enabled = true;
-        rpc-host-whitelist = "127.0.0.1,${config.networking.hostName},${config.networking.hostName}.home";
+        rpc-host-whitelist = "127.0.0.1,${config.networking.hostName},${config.networking.hostName}.${config.services.avahi.domainName}";
         speed-limit-up-enabled = true;
         speed-limit-up = 1; #KB/s
         umask = 7; # create files with 770 permissions
@@ -26,6 +26,7 @@ in {
       };
     };
 
+    services.nginx.enable = true;
     # * See: https://unix.stackexchange.com/questions/64812/get-transmission-web-interface-working-with-web-server
     services.nginx.virtualHosts.${config.networking.hostName}.locations = lib.mkIf nginx.enable {
       "/transmission" = {

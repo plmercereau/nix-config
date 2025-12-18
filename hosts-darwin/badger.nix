@@ -7,16 +7,17 @@
   nix.settings.cores = 8;
 
   nix.buildMachines = [
-    {
-      hostName = "fennec";
-      supportedFeatures = ["kvm" "benchmark" "big-parallel"];
-      speedFactor = 1;
-      maxJobs = 8;
-      sshUser = "pilou";
-      sshKey = "/Users/pilou/.ssh/id_ed25519";
-      protocol = "ssh-ng";
-      systems = ["x86_64-linux"];
-    }
+    # TODO re-enable fennec build machine
+    # {
+    #   hostName = "fennec.home";
+    #   supportedFeatures = ["kvm" "benchmark" "big-parallel"];
+    #   speedFactor = 1;
+    #   maxJobs = 8;
+    #   sshUser = "pilou";
+    #   sshKey = "/Users/pilou/.ssh/id_ed25519";
+    #   protocol = "ssh-ng";
+    #   systems = ["x86_64-linux"];
+    # }
   ];
 
   networking.hostName = "badger";
@@ -43,6 +44,7 @@
     "cursor"
     "claude"
     "anythingllm"
+    "zed" # Exists in nixpkgs, but not compiled...
     "spaceman" # Show spaces in the menu bar
     "balenaetcher"
     # "protonvpn"
