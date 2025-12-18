@@ -45,13 +45,16 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
+
   services.openssh.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   environment.pathsToLink = ["/share/zsh"];
   time.timeZone = "Europe/Brussels";
+  system.stateVersion = "26.05";
 
   networking = {
+    hostName = "fennec";
     firewall = {
       allowedTCPPorts = [2757 2759 64172];
       allowedUDPPorts = [2757 2759 67 69 4011];
@@ -67,6 +70,7 @@
   # * User: pilou
   users.users.pilou = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = ["wheel" "data"];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyxrQiE8bx1R9SG4fuNebXP8oq1duReM7E7W2M0i0fsC3PrKwQ6c9R4qzNQLREeWwtCWV0KEl0K+iriiIPa7D5psEASJapGyi5NtqEqZbM+a8BGQNdy82zEU4xU6IA4GyjxqPb/0zRiEh//4RuePZGNItW2Gl+1ZvOA1UTsHZKpGgZxWewoGdtm6EwscTy+5A4uanFWmxtpajy5J1GVR038quQLszSsTfTRr0gA80+uQbahHlGmP9HlyXrjaeKtSz9XTT95XmC/rVJkIKBYEIEf2fyV+O3hB1cxh+fb/lHFqoIJrES1qU4TAzs58Ioj0Jd3xlPGa96VJewrNXKbFjP pilou@MBPZ35"
@@ -119,7 +123,16 @@
   # Enable avahi mdns
   services.avahi = {
     enable = true;
-    domainName = "home";
+    domainName = "local";
+    # Ensure mDNS works out of the box (UDP/5353) and the host publishes A/AAAA
+    # records so `fennec.local` resolves quickly from macOS (`dns-sd`, `ssh`, …).
+    openFirewall = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+      domain = true;
+    };
   };
 
   # conflicts on port 80 (k3s enables traefik)
@@ -190,7 +203,7 @@
   # !!!!!!!!!! SAMBA !!!!!!!!
   services.samba = {
     enable = true;
-    shares = {
+    settings = {
       "data" = {
         path = "/data/shared";
         comment = "data files";

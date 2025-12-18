@@ -9,7 +9,7 @@
   nix.buildMachines = [
     # TODO re-enable fennec build machine
     # {
-    #   hostName = "fennec.home";
+    #   hostName = "fennec.local";
     #   supportedFeatures = ["kvm" "benchmark" "big-parallel"];
     #   speedFactor = 1;
     #   maxJobs = 8;
