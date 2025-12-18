@@ -10,6 +10,7 @@
   sonarr = config.services.sonarr;
   bazarr = config.services.bazarr;
   nginx = config.services.nginx;
+  jellyseerr = config.services.jellyseerr;
 in {
   /*
   TODO declarative configuration for radarr and prowlarr, in particular:
@@ -20,6 +21,23 @@ in {
   - directories
   - secrets
   */
+  services.jellyseerr = lib.mkIf jellyseerr.enable {
+    openFirewall = true;
+    port = 5055; # default port
+  };
+
+  services.radarr = lib.mkIf radarr.enable {
+    openFirewall = true;
+  };
+  services.sonarr = lib.mkIf sonarr.enable {
+    openFirewall = true;
+  };
+  services.bazarr = lib.mkIf bazarr.enable {
+    openFirewall = true;
+  };
+  services.prowlarr = lib.mkIf prowlarr.enable {
+    openFirewall = true;
+  };
   services.nginx.virtualHosts.${config.networking.hostName}.locations = {
     "/radarr" = lib.mkIf (nginx.enable && radarr.enable) {
       proxyPass = "http://127.0.0.1:7878";

@@ -3,7 +3,10 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  cfg = config;
+  glancesHostname = "http://${config.networking.hostName}.${config.services.avahi.domainName}:${toString cfg.services.glances.port}";
+in {
   disko.devices = {
     disk = {
       main = {
@@ -52,6 +55,8 @@
   environment.pathsToLink = ["/share/zsh"];
   time.timeZone = "Europe/Brussels";
   system.stateVersion = "26.05";
+
+  powerManagement.cpuFreqGovernor = "performance";
 
   networking = {
     hostName = "fennec";
@@ -135,6 +140,120 @@
     };
   };
 
+  services.glances = {
+    enable = true;
+    port = 61208;
+    openFirewall = true;
+  };
+
+  # TODO replace by homepage-dashboard ?
+  services.dashy = {
+    enable = true;
+    virtualHost.enableNginx = true;
+    virtualHost.domain = "fennec.local";
+    settings = {
+      appConfig = {
+        enableFontAwesome = true;
+        theme = "nord";
+      };
+      pageInfo = {
+        title = "Fennec";
+        # description = "Fennec";
+        # navLinks = [
+        #   {
+        #     path = "/";
+        #     title = "Home";
+        #   }
+        #   {
+        #     path = "https://example.com";
+        #     title = "Example 1";
+        #   }
+        #   {
+        #     path = "https://example.com";
+        #     title = "Example 2";
+        #   }
+        # ];
+      };
+      sections = [
+        {
+          name = "Links";
+          displayData = {
+            cols = 5;
+            itemSize = "large";
+          };
+          items = let
+            hostName = config.networking.hostName;
+            domainName = config.services.avahi.domainName;
+          in [
+            {
+              title = "Jellyfin";
+              description = "Watch movies and TV shows";
+              url = "http://${hostName}.${domainName}:8096";
+              icon = "fas fa-tv";
+            }
+            {
+              title = "Jellyseerr";
+              description = "Request movies and TV shows";
+              url = "http://${hostName}.${domainName}:${toString cfg.services.jellyseerr.port}";
+              icon = "fas fa-ticket-alt";
+            }
+            {
+              title = "Radarr";
+              description = "Download movies";
+              url = "http://${hostName}.${domainName}:${toString cfg.services.radarr.settings.server.port}";
+              icon = "fas fa-film";
+            }
+            {
+              title = "Sonarr";
+              description = "Download TV shows";
+              url = "http://${hostName}.${domainName}:${toString cfg.services.sonarr.settings.server.port}";
+              icon = "fas fa-photo-video";
+            }
+            {
+              title = "Bazarr";
+              description = "Download subtitles";
+              url = "http://${hostName}.${domainName}:${toString cfg.services.bazarr.listenPort}";
+              icon = "fas fa-closed-captioning";
+            }
+            {
+              title = "Prowlarr";
+              description = "Where to find movies and TV shows";
+              url = "http://${hostName}.${domainName}:${toString cfg.services.prowlarr.settings.server.port}";
+              icon = "fas fa-search";
+            }
+            {
+              title = "Transmission";
+              description = "Download client";
+              url = "http://${hostName}.${domainName}:${toString cfg.services.transmission.settings.rpc-port}";
+              icon = "fas fa-download";
+            }
+            {
+              title = "Glances";
+              description = "System monitoring";
+              url = "http://${hostName}.${domainName}:${toString cfg.services.glances.port}";
+              icon = "fas fa-chart-line";
+            }
+          ];
+        }
+        # {
+        #   name = "Glances";
+        #   displayData = {
+        #     cols = 3;
+        #     itemSize = "medium";
+        #   };
+        #   widgets = [
+        #     # {
+        #     #   type = "gl-current-cpu";
+        #     #   options = {
+        #     #     hostname = glancesHostname;
+        #     #   };
+        #     # }
+        #   ];
+        #   items = [];
+        # }
+      ];
+    };
+  };
   # conflicts on port 80 (k3s enables traefik)
   services.nginx = {
     # virtualHosts.${config.networking.hostName}.locations = {
@@ -148,12 +267,15 @@
   services.transmission = {
     enable = true;
     group = "data";
+    home = "/data/transmission";
   };
+
   services.jellyfin = {
     enable = true;
     group = "data";
   };
 
+  services.jellyseerr.enable = true;
   services.radarr = {
     enable = true;
     group = "data";

@@ -10,11 +10,14 @@
 in {
   config = lib.mkIf cfg.enable {
     services.transmission = {
-      #   openRPCPort = true; #Open firewall for RPC
+      openFirewall = true;
+      openRPCPort = true; #Open firewall for RPC
+      downloadDirPermissions = "770";
+
       # * https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md
       settings = {
         rpc-whitelist-enabled = true;
-        # TODO
+        rpc-bind-address = "0.0.0.0"; #Bind to own IP
         # rpc-whitelist = "127.0.0.1,10.136.1.*"; #Whitelist your remote machine (10.0.0.1 in this example)
         rpc-whitelist = "*";
         rpc-host-whitelist-enabled = true;
@@ -26,7 +29,6 @@ in {
       };
     };
 
-    services.nginx.enable = true;
     # * See: https://unix.stackexchange.com/questions/64812/get-transmission-web-interface-working-with-web-server
     services.nginx.virtualHosts.${config.networking.hostName}.locations = lib.mkIf nginx.enable {
       "/transmission" = {
