@@ -22,9 +22,6 @@
 
   networking.hostName = "badger";
 
-  # TODO reconfigure
-  # localIP = "10.136.1.242";
-
   custom = {
     windowManager.enable = true;
     keyboard.keyMapping.enable = true;
@@ -81,6 +78,7 @@
   homebrew.brews = [
     "thv" # toolhive
     "biome"
+    "qemu"
   ];
   users.users.pilou.home = "/Users/pilou";
   home-manager.users.pilou = {

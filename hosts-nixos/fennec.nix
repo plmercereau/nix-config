@@ -60,9 +60,22 @@ in {
 
   networking = {
     hostName = "fennec";
+    useNetworkd = true;
+    useDHCP = false;
+    interfaces.enp86s0 = {
+      ipv4.addresses = [
+        {
+          address = "192.168.1.2";
+          prefixLength = 24;
+        }
+      ];
+    };
+    defaultGateway = {
+      address = "192.168.1.1";
+      interface = "enp86s0";
+    };
     firewall = {
-      allowedTCPPorts = [2757 2759 64172];
-      allowedUDPPorts = [2757 2759 67 69 4011];
+      allowedTCPPorts = lib.optionals config.services.transmission.openRPCPort [config.services.transmission.settings.rpc-port];
     };
   };
 
@@ -268,28 +281,70 @@ in {
     enable = true;
     group = "data";
     home = "/data/transmission";
+    openFirewall = true;
+    openRPCPort = true; #Open firewall for RPC
+    downloadDirPermissions = "770";
+
+    # * https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md
+    settings = {
+      rpc-whitelist-enabled = true;
+      rpc-bind-address = "0.0.0.0"; #Bind to own IP
+      # rpc-whitelist = "127.0.0.1,10.136.1.*"; #Whitelist your remote machine (10.0.0.1 in this example)
+      rpc-whitelist = "*";
+      rpc-host-whitelist-enabled = true;
+      rpc-host-whitelist = "127.0.0.1,${config.networking.hostName},${config.networking.hostName}.${config.services.avahi.domainName}";
+      speed-limit-up-enabled = true;
+      speed-limit-up = 1; #KB/s
+      umask = 7; # create files with 770 permissions
+      download-queue-size = 40;
+    };
   };
 
   services.jellyfin = {
     enable = true;
+    openFirewall = true;
     group = "data";
+  };
+  users.users.jellyfin.extraGroups = lib.mkIf config.services.transmission.enable [config.services.transmission.user];
+  # * See: https://unix.stackexchange.com/questions/64812/get-transmission-web-interface-working-with-web-server
+  systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce "0007"; # create files with 770 permissions
+
+  services.jellyseerr = {
+    enable = true;
+    openFirewall = true;
   };
 
-  services.jellyseerr.enable = true;
   services.radarr = {
     enable = true;
+    openFirewall = true;
     group = "data";
   };
+  systemd.services.radarr = {
+    serviceConfig.UMask = "0007"; # create files with 770 permissions
+  };
+
   services.sonarr = {
     enable = true;
+    openFirewall = true;
+
     group = "data";
   };
+  systemd.services.sonarr = {
+    serviceConfig.UMask = "0007"; # create files with 770 permissions
+  };
+
   services.prowlarr = {
     enable = true;
+    openFirewall = true;
   };
+
   services.bazarr = {
     enable = true;
+    openFirewall = true;
     group = "data";
+  };
+  systemd.services.bazarr = {
+    serviceConfig.UMask = "0007"; # create files with 770 permissions
   };
 
   # home-manager.users.data = {lib, ...}: {
@@ -338,5 +393,62 @@ in {
         "force group" = "data";
       };
     };
+  };
+
+  services.dnsmasq = {
+    enable = true;
+    settings.dhcp-range = "192.168.1.11,192.168.1.254,12h";
+  };
+
+  services.auroraboot = {
+    enable = true;
+    macvlan.ip = "192.168.1.3";
+    macvlan.subnet = "192.168.1.0/24";
+    containerImage = "quay.io/kairos/hadron:v0.0.1-beta2-standard-amd64-generic-v3.6.1-beta2-k0s-v1.34.2-k0s.0";
+    # containerImage = "quay.io/kairos/hadron:v0.0.1-beta2-standard-amd64-generic-v3.6.1-beta2-k0s-v1.34.2-k0s.0";
+    cloudConfig = ''
+      #cloud-config
+      bundles:
+        - targets:
+            # - run://ghcr.io/plmercereau/community-bundles:flux-bootstrap_latest
+            - run://ghcr.io/plmercereau/community-bundles:k9s_latest
+            - run://ghcr.io/plmercereau/community-bundles:kairos_latest
+            - run://ghcr.io/plmercereau/community-bundles:kairos-operator_latest
+      hostname: test-{{ trunc 4 .MachineID }}
+      install:
+        device: auto
+        reboot: true
+        auto: true
+      k3s:
+        enabled: true
+        args:
+          - --disable=traefik
+      kairos:
+        osbuilder:
+          enable: true
+        entangle:
+          enable: true
+        entangleProxy:
+          enable: false
+      p2p:
+        role: master
+        network_id: test
+        disable_dht: true
+        vpn:
+          create: true
+          use: false
+        auto:
+          enable: false
+          ha:
+            enable: false
+        network_token: b3RwOgogIGRodDoKICAgIGludGVydmFsOiAzNjAKICAgIGtleTogbGJob0ZPQnhXYXZoR2ZQbVNhZGc3UkE5T2gyc3ZZdEUwYnQ4b0RWZVpBdQogICAgbGVuZ3RoOiA0MwogIGNyeXB0bzoKICAgIGludGVydmFsOiAzNjAKICAgIGtleTogc3VkbDk4QUh4WU5OSXVyNURaVFA0NjYwcllZYUxnUllGeWZNWTc4YkQ5VgogICAgbGVuZ3RoOiA0Mwpyb29tOiA1VDVNUTRWRGxJM3Y5YWJVV3NJUkR1WG84T2ZGZThrVmZtTmRPejV2bGhhCnJlbmRlenZvdXM6IEdlREtUYXhGTHd5VFJlWW9OWkZoMG5IVHh0dGdXOVpHMnBMcGk5ZFdCdjEKbWRuczogbEczMlpuaXRTdTRuaFV6V2k4bzRpRHZnT1pkQ0F0Zm85WnJzRlQ4YWg4TQptYXhfbWVzc2FnZV9zaXplOiAyMDk3MTUyMAo=
+      users:
+        - name: plmercereau
+          lock_passwd: true
+          groups:
+            - admin
+          ssh_authorized_keys:
+            - github:plmercereau
+    '';
   };
 }

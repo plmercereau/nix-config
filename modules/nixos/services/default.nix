@@ -1,10 +1,8 @@
 {
   imports = [
     ./adguardhome.nix
-    ./jellyfin.nix
-    ./nginx.nix
+    ./auroraboot.nix
     ./samba.nix
-    ./servarr.nix
-    ./transmission.nix
+    ./dnsmasq.nix
   ];
 }
