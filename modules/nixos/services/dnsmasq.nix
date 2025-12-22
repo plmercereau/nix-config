@@ -5,7 +5,14 @@
   lib,
   ...
 }: let
+  interfaceName = "enp86s0";
+  lanDomain = "lan";
+
   cfg = config.services.dnsmasq;
+  interface = config.networking.interfaces.${interfaceName};
+  firstInterfaceIp = lib.elemAt interface.ipv4.addresses 0;
+  firstIp = firstInterfaceIp.address;
+  hostname = config.networking.hostName;
 in {
   services.dnsmasq = lib.mkIf cfg.enable {
     settings = {
@@ -15,7 +22,21 @@ in {
       # Default route given to clients
       dhcp-option = [
         "option:router,${config.networking.defaultGateway.address}"
-        "option:dns-server,${config.networking.defaultGateway.address},1.1.1.1,8.8.8.8"
+        "option:dns-server,${firstIp}"
+        # TODO not sure this is needed for auroraboot
+        "option:tftp-server,192.168.1.3"
+        "option:domain-name,${lanDomain}"
+        "option:domain-search,${lanDomain}"
+      ];
+      host-record = [
+        # TODO compute this
+        "${hostname}.${lanDomain},${firstIp}"
+      ];
+      domain = lanDomain;
+      local = "/${lanDomain}/";
+      server = [
+        "1.1.1.1"
+        "8.8.8.8"
       ];
       # Conservative defaults
       domain-needed = true;
