@@ -65,13 +65,13 @@ in {
     interfaces.enp86s0 = {
       ipv4.addresses = [
         {
-          address = "192.168.1.2";
+          address = "192.168.0.2";
           prefixLength = 24;
         }
       ];
     };
     defaultGateway = {
-      address = "192.168.1.1";
+      address = "192.168.0.1";
       interface = "enp86s0";
     };
     firewall = {
@@ -396,59 +396,7 @@ in {
   };
 
   services.dnsmasq = {
-    enable = true;
-    settings.dhcp-range = "192.168.1.11,192.168.1.254,12h";
-  };
-
-  services.auroraboot = {
-    enable = true;
-    macvlan.ip = "192.168.1.3";
-    macvlan.subnet = "192.168.1.0/24";
-    containerImage = "quay.io/kairos/hadron:v0.0.1-beta2-standard-amd64-generic-v3.6.1-beta2-k0s-v1.34.2-k0s.0";
-    # containerImage = "quay.io/kairos/hadron:v0.0.1-beta2-standard-amd64-generic-v3.6.1-beta2-k0s-v1.34.2-k0s.0";
-    cloudConfig = ''
-      #cloud-config
-      bundles:
-        - targets:
-            # - run://ghcr.io/plmercereau/community-bundles:flux-bootstrap_latest
-            - run://ghcr.io/plmercereau/community-bundles:k9s_latest
-            - run://ghcr.io/plmercereau/community-bundles:kairos_latest
-            - run://ghcr.io/plmercereau/community-bundles:kairos-operator_latest
-      hostname: test-{{ trunc 4 .MachineID }}
-      install:
-        device: auto
-        reboot: true
-        auto: true
-      k3s:
-        enabled: true
-        args:
-          - --disable=traefik
-      kairos:
-        osbuilder:
-          enable: true
-        entangle:
-          enable: true
-        entangleProxy:
-          enable: false
-      p2p:
-        role: master
-        network_id: test
-        disable_dht: true
-        vpn:
-          create: true
-          use: false
-        auto:
-          enable: false
-          ha:
-            enable: false
-        network_token: b3RwOgogIGRodDoKICAgIGludGVydmFsOiAzNjAKICAgIGtleTogbGJob0ZPQnhXYXZoR2ZQbVNhZGc3UkE5T2gyc3ZZdEUwYnQ4b0RWZVpBdQogICAgbGVuZ3RoOiA0MwogIGNyeXB0bzoKICAgIGludGVydmFsOiAzNjAKICAgIGtleTogc3VkbDk4QUh4WU5OSXVyNURaVFA0NjYwcllZYUxnUllGeWZNWTc4YkQ5VgogICAgbGVuZ3RoOiA0Mwpyb29tOiA1VDVNUTRWRGxJM3Y5YWJVV3NJUkR1WG84T2ZGZThrVmZtTmRPejV2bGhhCnJlbmRlenZvdXM6IEdlREtUYXhGTHd5VFJlWW9OWkZoMG5IVHh0dGdXOVpHMnBMcGk5ZFdCdjEKbWRuczogbEczMlpuaXRTdTRuaFV6V2k4bzRpRHZnT1pkQ0F0Zm85WnJzRlQ4YWg4TQptYXhfbWVzc2FnZV9zaXplOiAyMDk3MTUyMAo=
-      users:
-        - name: plmercereau
-          lock_passwd: true
-          groups:
-            - admin
-          ssh_authorized_keys:
-            - github:plmercereau
-    '';
+    enable = false;
+    settings.dhcp-range = "192.168.0.11,192.168.0.254,12h";
   };
 }

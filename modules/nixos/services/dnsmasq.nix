@@ -24,7 +24,7 @@ in {
         "option:router,${config.networking.defaultGateway.address}"
         "option:dns-server,${firstIp}"
         # TODO not sure this is needed for auroraboot
-        "option:tftp-server,192.168.1.3"
+        "option:tftp-server,192.168.0.3"
         "option:domain-name,${lanDomain}"
         "option:domain-search,${lanDomain}"
       ];

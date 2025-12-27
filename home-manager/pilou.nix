@@ -12,5 +12,6 @@
     act
     libisoburn # xorriso, needed for ISO creation / AuroraBoot / Kairos
     claude-code
+    speedtest-cli
   ];
 }

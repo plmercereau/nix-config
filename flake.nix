@@ -79,9 +79,9 @@
         # Config
         # nix run github:nix-community/nixos-anywhere -- --flake .#fennec --generate-hardware-config nixos-facter ./hosts-nixos/fennec-facter.json
         # Install
-        # nix run github:nix-community/nixos-anywhere -- --flake .#fennec --target-host root@192.168.1.242
+        # nix run github:nix-community/nixos-anywhere -- --flake .#fennec --target-host root@192.168.0.242
         # Update
-        # nixos-rebuild switch --flake .#fennec --target-host root@192.168.1.242
+        # nixos-rebuild switch --flake .#fennec --target-host root@192.168.0.242
         # nix run github:serokell/deploy-rs .#fennec -- --skip-checks
         fennec = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";

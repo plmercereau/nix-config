@@ -37,13 +37,13 @@ in {
       macvlan = {
         subnet = lib.mkOption {
           type = lib.types.str;
-          default = "192.168.1.0/24";
+          default = "192.168.0.0/24";
           description = "IPv4 subnet for the macvlan network (CIDR).";
         };
 
         ip = lib.mkOption {
           type = lib.types.str;
-          default = "192.168.1.3";
+          default = "192.168.0.3";
           description = "Static IPv4 to assign to the auroraboot container on the macvlan network.";
         };
       };
@@ -144,7 +144,6 @@ in {
       ];
       allowedUDPPorts = [
         67
-        69 # TFTP (PXE/netboot initial file fetch)
         4011 # UDP port used for PXE ProxyDHCP on the AuroraBoot host
       ];
     };
